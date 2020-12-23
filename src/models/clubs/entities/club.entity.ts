@@ -1,13 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { IsInt, IsString, IsNotEmpty } from 'class-validator';
 
-@Entity()
+@Entity({ name: 'clubs' })
 export class Club {
-  @PrimaryGeneratedColumn({ type: 'int' })
+  @IsInt()
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text' })
+  @IsString()
+  @IsNotEmpty()
+  @Column()
   name: string;
 
-  @Column({ type: 'text' })
+  @IsString()
+  @IsNotEmpty()
+  @Column()
   location: string;
+
+  constructor(club: Partial<Club>) {
+    Object.assign(this, club);
+  }
 }
