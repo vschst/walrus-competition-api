@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Club } from './entities/club.entity';
+import { ClubView } from './entities/club.view.entity';
 
 @Injectable()
 export class ClubsService {
@@ -10,6 +11,8 @@ export class ClubsService {
   constructor(
     @InjectRepository(Club)
     private clubsRepository: Repository<Club>,
+    @InjectRepository(ClubView)
+    private clubViewRepository: Repository<ClubView>,
   ) {}
 
   async findOne(id: string): Promise<Club> {
@@ -22,5 +25,12 @@ export class ClubsService {
     }
 
     return club;
+  }
+
+  async findAll(limit = 10, offset = 0): Promise<[ClubView[], number]> {
+    return await this.clubViewRepository.findAndCount({
+      take: limit,
+      skip: offset,
+    });
   }
 }

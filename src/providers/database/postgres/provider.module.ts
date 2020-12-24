@@ -6,6 +6,7 @@ import { PostgresConfigService } from '@config/database/postgres/config.service'
 //  Entities
 import { User } from '@models/users/entities/user.entity';
 import { Club } from '@models/clubs/entities/club.entity';
+import { ClubView } from '@models/clubs/entities/club.view.entity';
 import { Member } from '@models/members/entities/member.entity';
 
 @Module({
@@ -29,7 +30,7 @@ import { Member } from '@models/members/entities/member.entity';
           username,
           password,
           database,
-          entities: [User, Club, Member],
+          entities: [User, Club, ClubView, Member],
           synchronize: true,
         };
       },
