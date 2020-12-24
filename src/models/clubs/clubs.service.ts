@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { Club } from './entities/club.entity';
 import { ClubView } from './entities/club.view.entity';
 
@@ -27,10 +27,22 @@ export class ClubsService {
     return club;
   }
 
-  async findAll(limit = 10, offset = 0): Promise<[ClubView[], number]> {
+  async findAll(
+    limit = 10,
+    offset = 0,
+    sort = 'name',
+    direction = 'asc',
+    search = '',
+  ): Promise<[ClubView[], number]> {
     return await this.clubViewRepository.findAndCount({
       take: limit,
       skip: offset,
+      order: {
+        [sort]: direction,
+      },
+      ...(search && {
+        name: Like(`%${search}%`),
+      }),
     });
   }
 }

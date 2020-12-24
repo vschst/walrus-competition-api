@@ -13,7 +13,7 @@ export class ClubsSerializerService extends BaseSerializerService<
       id: clubView.id,
       name: clubView.name,
       location: clubView.location,
-      members_count: clubView.members_count,
+      members_count: Number(clubView.members_count),
     };
   }
 }

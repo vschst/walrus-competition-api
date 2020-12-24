@@ -1,11 +1,10 @@
 import {
   Controller,
-  DefaultValuePipe,
   Get,
   Param,
-  ParseIntPipe,
   Query,
   UseInterceptors,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiParam, ApiOperation } from '@nestjs/swagger';
 import { ClubsService } from './clubs.service';
@@ -15,6 +14,7 @@ import { IdParamDTO } from '@common/dto/id.param.dto';
 import { GetClubResponseDTO } from './dto/club.dto';
 import { GetClubsListResponseDTO } from './dto/clubs.dto';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
+import { GetClubsFilterDTO } from '@models/clubs/dto/clubs.filter.dto';
 
 @ApiTags('clubs')
 @Controller('clubs')
@@ -29,10 +29,16 @@ export class ClubsController {
   @Get()
   @ApiOperation({ summary: 'Get clubs list' })
   async getClubs(
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-    @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number,
+    @Query(ValidationPipe)
+    { limit, offset, sort, direction, search }: GetClubsFilterDTO,
   ): Promise<GetClubsListResponseDTO> {
-    const [clubs, total] = await this.clubsService.findAll(limit, offset);
+    const [clubs, total] = await this.clubsService.findAll(
+      limit,
+      offset,
+      sort,
+      direction,
+      search,
+    );
 
     return {
       data: this.clubsSerializerService.markSerializableCollection(clubs),
