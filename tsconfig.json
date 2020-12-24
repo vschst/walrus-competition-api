@@ -15,7 +15,8 @@
       "@common/*": ["common/*"],
       "@config/*": ["config/*"],
       "@providers/*": ["providers/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@auth/*": ["auth/*"]
     }
   }
 }

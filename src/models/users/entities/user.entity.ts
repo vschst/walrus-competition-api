@@ -8,6 +8,7 @@ import {
   MinLength,
   MaxLength,
 } from 'class-validator';
+import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class User {
@@ -26,4 +27,23 @@ export class User {
   @Exclude({ toPlainOnly: true })
   @Column({ select: false })
   password: string;
+
+  @Exclude({ toPlainOnly: true })
+  @Column({ select: false })
+  salt: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  name: string;
+
+  async hashPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, this.salt);
+  }
+
+  async validatePassword(password: string): Promise<boolean> {
+    const hash = await this.hashPassword(password);
+
+    return hash === this.password;
+  }
 }

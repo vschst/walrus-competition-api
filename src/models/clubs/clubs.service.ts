@@ -10,13 +10,13 @@ export class ClubsService {
 
   constructor(
     @InjectRepository(Club)
-    private clubsRepository: Repository<Club>,
+    private clubRepository: Repository<Club>,
     @InjectRepository(ClubView)
     private clubViewRepository: Repository<ClubView>,
   ) {}
 
-  async findOne(id: string): Promise<Club> {
-    const club = await this.clubsRepository.findOne(id);
+  async findOne(id: number): Promise<Club> {
+    const club = await this.clubRepository.findOne(id);
 
     if (!club) {
       throw new NotFoundException({

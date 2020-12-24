@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsInt } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class IdParamDTO {
-  @IsNotEmpty()
-  @IsString()
-  id: string;
+  @Transform((id) => parseInt(id))
+  @IsInt()
+  id: number;
 }
