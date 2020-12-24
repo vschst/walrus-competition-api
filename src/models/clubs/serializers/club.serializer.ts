@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseSerializerService } from '@common/serializers/responses/base.serializer';
+import { BaseSerializerService } from '@common/serializers/base.serializer';
 import { Club } from '@models/clubs/entities/club.entity';
 import { GetClubDataDTO } from '@models/clubs/dto/club.dto';
 

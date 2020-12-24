@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import {
   IsInt,
@@ -7,10 +7,9 @@ import {
   IsNotEmpty,
   MinLength,
   MaxLength,
-  IsDate
 } from 'class-validator';
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
   @IsInt()
   @PrimaryGeneratedColumn()
@@ -27,9 +26,4 @@ export class User {
   @Exclude({ toPlainOnly: true })
   @Column({ select: false })
   password: string;
-
-  @IsDate()
-  @IsNotEmpty()
-  @CreateDateColumn()
-  birthdate: string;
 }
