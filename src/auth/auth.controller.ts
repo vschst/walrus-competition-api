@@ -12,6 +12,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
+  @HttpCode(200)
   @ApiOperation({ summary: 'Login as a user' })
   async login(
     @Body() authCredentialsRequestDTO: AuthCredentialsRequestDTO,
