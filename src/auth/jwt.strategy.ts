@@ -1,9 +1,10 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UsersService } from '@models/users/users.service';
 import { JwtConfigService } from '@config/jwt/config.service';
 import { IJwtPayload } from '@auth/interfaces/jwt.payload.interface';
+import { IJwtAuthUser } from '@auth/interfaces/jwt.auth.user.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -18,9 +19,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate({ id }: IJwtPayload) {
-    const [isUserExists] = await this.userService.findOne(id);
+  async validate({ id }: IJwtPayload): Promise<IJwtAuthUser> {
+    const [isUserExists, user] = await this.userService.findOne(id);
 
-    return isUserExists;
+    if (!isUserExists) {
+      throw new InternalServerErrorException('User from jwt payload not found');
+    }
+
+    return { id: user.id, email: user.email, name: user.name };
   }
 }

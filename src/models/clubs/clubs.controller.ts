@@ -1,14 +1,22 @@
 import {
   Controller,
+  Post,
   Get,
+  Body,
   Param,
   Query,
   UseGuards,
   UseInterceptors,
   ValidationPipe,
   NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
-import { ApiTags, ApiParam, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiParam,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { ClubsService } from './clubs.service';
 import { ClubSerializerService } from './serializers/club.serializer';
 import { ClubsSerializerService } from './serializers/clubs.serializer';
@@ -18,8 +26,10 @@ import { GetClubsListResponseDTO } from './dto/clubs.dto';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { GetClubsFilterDTO } from '@models/clubs/dto/clubs.filter.dto';
 import { JwtAuthGuard } from '@common/guards/jwt.auth.guard';
+import { CreateClubRequestDTO } from './dto/create.club.dto';
 
 @ApiTags('clubs')
+@ApiBearerAuth()
 @Controller('clubs')
 @UseInterceptors(SerializerInterceptor)
 @UseGuards(JwtAuthGuard)
@@ -29,6 +39,25 @@ export class ClubsController {
     private readonly clubSerializerService: ClubSerializerService,
     private readonly clubsSerializerService: ClubsSerializerService,
   ) {}
+
+  @Post()
+  @ApiOperation({ summary: 'Add a new club' })
+  async createClub(
+    @Body() { name, location }: CreateClubRequestDTO,
+  ): Promise<GetClubResponseDTO> {
+    const [isClubCreated, club] = await this.clubsService.createClub(
+      name,
+      location,
+    );
+
+    if (!isClubCreated) {
+      throw new InternalServerErrorException('Could not create club');
+    }
+
+    return {
+      data: this.clubSerializerService.markSerializableValue(club),
+    };
+  }
 
   @Get()
   @ApiOperation({ summary: 'Get clubs list' })

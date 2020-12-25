@@ -15,6 +15,20 @@ export class ClubsService {
     private clubViewRepository: Repository<ClubView>,
   ) {}
 
+  async createClub(name: string, location: string): Promise<[boolean, Club]> {
+    try {
+      const user = new Club({ name, location });
+
+      await user.save();
+
+      return [true, user];
+    } catch (error) {
+      this.logger.error(error);
+
+      return [false, null];
+    }
+  }
+
   async findOne(id: number): Promise<[boolean, Club]> {
     const club = await this.clubRepository.findOne(id);
 
