@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable, Logger, ForbiddenException } from '@nestjs/common';
 import { UsersService } from '@models/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthCredentialsRequestDTO } from './dto/auth.credentials.dto';
@@ -7,14 +7,21 @@ import { IJwtPayload } from './interfaces/jwt.payload.interface';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
-    const isValidPassword = user.validatePassword(password);
+    const [isUserExists, user] = await this.usersService.findByEmail(email);
+
+    if (!isUserExists) {
+      throw new ForbiddenException('User with this email was not found');
+    }
+
+    const isValidPassword = await user.validatePassword(password);
 
     if (!isValidPassword) {
       throw new ForbiddenException('Invalid user password');

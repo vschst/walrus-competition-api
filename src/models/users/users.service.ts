@@ -12,27 +12,27 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: number): Promise<[boolean, User]> {
     const user = await this.userRepository.findOne({
       where: { id },
     });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      return [false, null];
     }
 
-    return user;
+    return [true, user];
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<[boolean, User]> {
     const user = await this.userRepository.findOne({
       where: { email },
     });
 
     if (!user) {
-      throw new NotFoundException('User with this email not found');
+      return [false, null];
     }
 
-    return user;
+    return [true, user];
   }
 }

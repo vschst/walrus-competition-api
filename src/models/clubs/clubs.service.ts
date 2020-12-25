@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { Club } from './entities/club.entity';
@@ -15,16 +15,14 @@ export class ClubsService {
     private clubViewRepository: Repository<ClubView>,
   ) {}
 
-  async findOne(id: number): Promise<Club> {
+  async findOne(id: number): Promise<[boolean, Club]> {
     const club = await this.clubRepository.findOne(id);
 
     if (!club) {
-      throw new NotFoundException({
-        error: 'Club not found',
-      });
+      return [false, null];
     }
 
-    return club;
+    return [true, club];
   }
 
   async findAll(

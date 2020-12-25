@@ -25,17 +25,21 @@ export class User {
   @MinLength(8)
   @MaxLength(10)
   @Exclude({ toPlainOnly: true })
-  @Column({ select: false })
+  @Column()
   password: string;
 
   @Exclude({ toPlainOnly: true })
-  @Column({ select: false })
+  @Column()
   salt: string;
 
   @IsString()
   @IsNotEmpty()
   @Column()
   name: string;
+
+  constructor(user: Partial<User>) {
+    Object.assign(this, user);
+  }
 
   async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, this.salt);
