@@ -43,14 +43,14 @@ export class ClubsService {
     limit = 10,
     offset = 0,
     sort = 'name',
-    direction = 'asc',
+    direction = 'desc',
     search = '',
   ): Promise<[ClubView[], number]> {
     return await this.clubViewRepository.findAndCount({
-      take: limit,
+      ...(limit >= 0 && { take: limit }),
       skip: offset,
       order: {
-        [sort]: direction,
+        [sort]: direction.toUpperCase(),
       },
       ...(search && {
         name: Like(`%${search}%`),

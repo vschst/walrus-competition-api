@@ -9,7 +9,7 @@ import {
   UseInterceptors,
   ValidationPipe,
   NotFoundException,
-  InternalServerErrorException,
+  InternalServerErrorException, HttpCode,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -42,6 +42,7 @@ export class ClubsController {
 
   @Post()
   @ApiOperation({ summary: 'Add a new club' })
+  @HttpCode(200)
   async createClub(
     @Body() { name, location }: CreateClubRequestDTO,
   ): Promise<GetClubResponseDTO> {
