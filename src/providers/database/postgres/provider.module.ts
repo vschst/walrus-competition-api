@@ -8,6 +8,7 @@ import { User } from '@models/users/entities/user.entity';
 import { Club } from '@models/clubs/entities/club.entity';
 import { ClubView } from '@models/clubs/entities/club.view.entity';
 import { Member } from '@models/members/entities/member.entity';
+import { MemberView} from '@models/members/entities/member.view.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { Member } from '@models/members/entities/member.entity';
           username,
           password,
           database,
-          entities: [User, Club, ClubView, Member],
+          entities: [User, Club, ClubView, Member, MemberView],
           synchronize: true,
         };
       },

@@ -41,9 +41,8 @@ export class Member {
   middle_name: string;
 
   @IsDate()
-  @IsNotEmpty()
-  @CreateDateColumn()
-  birthdate: string;
+  @Column({ type: 'date' })
+  birthdate: Date;
 
   @IsEnum(Gender)
   @IsNotEmpty()
