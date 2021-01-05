@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
-import { MemberView } from '@models/members/entities/member.view.entity';
+import { MemberView } from '@models/members/entities/member-view.entity';
 import { GetMembersListItem } from '@models/members/dto/members.dto';
 
 @Injectable()

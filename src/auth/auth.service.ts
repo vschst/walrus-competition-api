@@ -1,9 +1,9 @@
 import { Injectable, Logger, ForbiddenException } from '@nestjs/common';
 import { UsersService } from '@models/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { AuthCredentialsRequestDTO } from './dto/auth.credentials.dto';
+import { AuthCredentialsRequestDTO } from './dto/auth-credentials.dto';
 import { User } from '@models/users/entities/user.entity';
-import { IJwtPayload } from './interfaces/jwt.payload.interface';
+import { IJwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {

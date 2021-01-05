@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { Club } from './entities/club.entity';
-import { ClubView } from './entities/club.view.entity';
+import { ClubView } from './entities/club-view.entity';
 
 @Injectable()
 export class ClubsService {

@@ -1,7 +1,7 @@
 import { IsIn, IsInt, IsOptional, IsString, Length } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class BaseFilterDTO {
+export class BaseFilterDto {
   @IsOptional()
   @Transform((limit) => parseInt(limit))
   @IsInt()

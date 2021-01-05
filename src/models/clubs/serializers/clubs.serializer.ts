@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
-import { ClubView } from '@models/clubs/entities/club.view.entity';
+import { ClubView } from '@models/clubs/entities/club-view.entity';
 import { GetClubsListItem } from '@models/clubs/dto/clubs.dto';
 
 @Injectable()

@@ -6,11 +6,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { JwtAuthGuard } from '@common/guards/jwt.auth.guard';
-import { GetAuthUser } from '@common/decorators/requests/get.auth.user.decorator';
-import { IJwtAuthUser } from '@auth/interfaces/jwt.auth.user.interface';
+import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { GetAuthUser } from '@common/decorators/requests/get-auth-user.decorator';
+import { IJwtAuthUser } from '@auth/interfaces/jwt-auth-user.interface';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
-import { AuthUserSerializerService } from './serializers/auth.user.serializer';
+import { AuthUserSerializerService } from './serializers/auth-user.serializer';
 import { GetUserResponseDTO } from './dto/user.dto';
 
 @ApiTags('users')

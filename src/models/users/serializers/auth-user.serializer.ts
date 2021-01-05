@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
 import { GetUserDataDTO } from '@models/users/dto/user.dto';
-import { IJwtAuthUser } from '@auth/interfaces/jwt.auth.user.interface';
+import { IJwtAuthUser } from '@auth/interfaces/jwt-auth-user.interface';
 
 @Injectable()
 export class AuthUserSerializerService extends BaseSerializerService<

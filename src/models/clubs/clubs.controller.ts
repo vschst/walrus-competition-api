@@ -21,13 +21,13 @@ import {
 import { ClubsService } from './clubs.service';
 import { ClubSerializerService } from './serializers/club.serializer';
 import { ClubsSerializerService } from './serializers/clubs.serializer';
-import { IdParamDTO } from '@common/dto/id.param.dto';
+import { IdParamDto } from '@common/dto/id-param.dto';
 import { GetClubResponseDTO } from './dto/club.dto';
 import { GetClubsListResponseDTO } from './dto/clubs.dto';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
-import { GetClubsFilterDTO } from '@models/clubs/dto/clubs.filter.dto';
-import { JwtAuthGuard } from '@common/guards/jwt.auth.guard';
-import { CreateClubRequestDTO } from './dto/create.club.dto';
+import { GetClubsFilterDTO } from '@models/clubs/dto/clubs-filter.dto';
+import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { CreateClubRequestDTO } from './dto/create-club.dto';
 
 @ApiTags('clubs')
 @ApiBearerAuth()
@@ -86,7 +86,7 @@ export class ClubsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get club by ID' })
   @ApiParam({ name: 'id', description: 'Club ID' })
-  async getClub(@Param() { id }: IdParamDTO): Promise<GetClubResponseDTO> {
+  async getClub(@Param() { id }: IdParamDto): Promise<GetClubResponseDTO> {
     const [isClubExists, club] = await this.clubsService.findOne(id);
 
     if (!isClubExists) {

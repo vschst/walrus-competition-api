@@ -6,15 +6,10 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiBearerAuth,
-  ApiParam,
-  ApiOperation,
-} from '@nestjs/swagger';
-import { JwtAuthGuard } from '@common/guards/jwt.auth.guard';
+import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { MembersService } from './members.service';
-import { GetMembersFilterDTO } from './dto/members.filter.dto';
+import { GetMembersFilterDTO } from './dto/members-filter.dto';
 import { GetMembersListResponseDTO } from '@models/members/dto/members.dto';
 import { MembersSerializerService } from './serializers/members.serializer';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
