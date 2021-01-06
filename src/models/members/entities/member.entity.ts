@@ -2,9 +2,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  BaseEntity,
 } from 'typeorm';
 import {
   IsInt,
@@ -20,7 +20,7 @@ import { Gender } from '@common/enums/gender.enum';
 import { Club } from '@models/clubs/entities/club.entity';
 
 @Entity({ name: 'members' })
-export class Member {
+export class Member extends BaseEntity {
   @IsInt()
   @PrimaryGeneratedColumn()
   id: number;
@@ -66,6 +66,7 @@ export class Member {
   club: Club;
 
   constructor(member: Partial<Member>) {
+    super();
     Object.assign(this, member);
   }
 }

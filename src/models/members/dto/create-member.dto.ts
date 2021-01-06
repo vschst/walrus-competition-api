@@ -1,19 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDate,
+  IsEmail,
   IsEnum,
   IsInt,
-  IsNotEmpty, IsOptional,
+  IsNotEmpty,
+  IsOptional,
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import { Serializable } from '@common/serializers/base.serializer';
+import { Type } from 'class-transformer';
 import { Gender } from '@common/enums/gender.enum';
 
-export class GetMembersListItem {
+export class CreateMemberRequestDTO {
   @ApiProperty()
-  @IsInt()
-  id: number;
+  @IsString()
+  @IsNotEmpty()
+  first_name: string;
 
   @ApiProperty()
   @IsString()
@@ -22,20 +25,17 @@ export class GetMembersListItem {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  first_name: string;
-
-  @ApiProperty()
   @IsOptional()
-  @IsString()
   middle_name: string;
 
   @ApiProperty()
+  @Type(() => Date)
   @IsDate()
   birthdate: Date;
 
   @ApiProperty()
   @IsEnum(Gender)
+  @IsNotEmpty()
   gender: Gender;
 
   @ApiProperty()
@@ -43,32 +43,14 @@ export class GetMembersListItem {
   club_id: number;
 
   @ApiProperty()
+  @IsEmail()
   @IsString()
-  @IsNotEmpty()
-  club_name: string;
-
-  @ApiProperty()
   @IsOptional()
-  @IsString()
   email: string;
 
   @ApiProperty()
   @IsPhoneNumber('RU')
-  @IsOptional()
   @IsString()
+  @IsOptional()
   phone: string;
-}
-
-export class GetMembersListResponseDTO {
-  @ApiProperty({ type: () => [GetMembersListItem] })
-  data: Serializable<GetMembersListItem[]>;
-
-  @ApiProperty()
-  total: number;
-
-  @ApiProperty()
-  limit: number;
-
-  @ApiProperty()
-  offset: number;
 }

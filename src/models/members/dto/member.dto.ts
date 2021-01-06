@@ -1,16 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDate,
-  IsEnum,
-  IsInt,
-  IsNotEmpty, IsOptional,
-  IsPhoneNumber,
-  IsString,
-} from 'class-validator';
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import { Serializable } from '@common/serializers/base.serializer';
 import { Gender } from '@common/enums/gender.enum';
 
-export class GetMembersListItem {
+export class GetMemberDataDTO {
   @ApiProperty()
   @IsInt()
   id: number;
@@ -59,16 +52,7 @@ export class GetMembersListItem {
   phone: string;
 }
 
-export class GetMembersListResponseDTO {
-  @ApiProperty({ type: () => [GetMembersListItem] })
-  data: Serializable<GetMembersListItem[]>;
-
-  @ApiProperty()
-  total: number;
-
-  @ApiProperty()
-  limit: number;
-
-  @ApiProperty()
-  offset: number;
+export class GetMemberResponseDTO {
+  @ApiProperty({ type: () => GetMemberDataDTO })
+  data: Serializable<GetMemberDataDTO>;
 }

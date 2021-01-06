@@ -65,6 +65,7 @@ export class MemberView {
 
   @IsString()
   @IsNotEmpty()
+  @ViewColumn()
   club_name: string;
 
   @IsEmail()
