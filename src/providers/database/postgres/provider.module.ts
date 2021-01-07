@@ -32,7 +32,7 @@ import { MemberView} from '@models/members/entities/member-view.entity';
           password,
           database,
           entities: [User, Club, ClubView, Member, MemberView],
-          synchronize: true,
+          synchronize: false,
         };
       },
     }),
