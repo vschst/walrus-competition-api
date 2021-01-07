@@ -12,9 +12,11 @@
     "baseUrl": "./src",
     "incremental": true,
     "paths": {
+      "@common/*": ["common/*"],
       "@config/*": ["config/*"],
       "@providers/*": ["providers/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@auth/*": ["auth/*"]
     }
   }
 }
