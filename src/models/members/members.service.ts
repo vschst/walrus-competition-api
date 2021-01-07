@@ -59,7 +59,9 @@ export class MembersService {
   }
 
   async findOne(id: number): Promise<[boolean, Member]> {
-    const member = await this.memberRepository.findOne(id);
+    const member = await this.memberRepository.findOne(id, {
+      relations: ['club'],
+    });
 
     if (!member) {
       return [false, null];
@@ -74,6 +76,7 @@ export class MembersService {
     sort = 'first_name',
     direction = 'desc',
     club_id = null,
+    gender = null,
     search = '',
   ): Promise<[MemberView[], number]> {
     return await this.memberViewEntity.findAndCount({
@@ -84,6 +87,7 @@ export class MembersService {
       },
       where: {
         ...(club_id && { club_id }),
+        ...(gender && { gender }),
       },
       ...(search && {
         first_name: Like(`%${search}%`),

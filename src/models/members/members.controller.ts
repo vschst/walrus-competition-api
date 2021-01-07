@@ -9,8 +9,15 @@ import {
   ValidationPipe,
   Body,
   InternalServerErrorException,
+  Param,
+  NotFoundException,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { MembersService } from './members.service';
 import { GetMembersFilterDTO } from './dto/members-filter.dto';
@@ -20,6 +27,7 @@ import { MembersSerializerService } from './serializers/members.serializer';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { CreateMemberRequestDTO } from '@models/members/dto/create-member.dto';
 import { GetMemberResponseDTO } from './dto/member.dto';
+import { IdParamDto } from '@common/dto/id-param.dto';
 
 @ApiTags('members')
 @ApiBearerAuth()
@@ -73,7 +81,15 @@ export class MembersController {
   @ApiOperation({ summary: 'Get members list' })
   async getMembers(
     @Query(ValidationPipe)
-    { limit, offset, sort, direction, club_id, search }: GetMembersFilterDTO,
+    {
+      limit,
+      offset,
+      sort,
+      direction,
+      club_id,
+      gender,
+      search,
+    }: GetMembersFilterDTO,
   ): Promise<GetMembersListResponseDTO> {
     const [members, total] = await this.membersService.findAll(
       limit,
@@ -81,6 +97,7 @@ export class MembersController {
       sort,
       direction,
       club_id,
+      gender,
       search,
     );
 
@@ -89,6 +106,21 @@ export class MembersController {
       total,
       limit,
       offset,
+    };
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get member by ID' })
+  @ApiParam({ name: 'id', description: 'Member ID' })
+  async getMember(@Param() { id }: IdParamDto): Promise<GetMemberResponseDTO> {
+    const [isMemberExists, member] = await this.membersService.findOne(id);
+
+    if (!isMemberExists) {
+      throw new NotFoundException('Member not found');
+    }
+
+    return {
+      data: this.memberSerializerService.markSerializableValue(member),
     };
   }
 }

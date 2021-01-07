@@ -1,6 +1,7 @@
-import { IsOptional, IsInt, IsIn } from 'class-validator';
+import { IsOptional, IsInt, IsIn, IsEnum } from 'class-validator';
 import { BaseFilterDto } from '@common/dto/base-filter.dto';
 import { Transform } from 'class-transformer';
+import { Gender } from '@common/enums/gender.enum';
 
 export class GetMembersFilterDTO extends BaseFilterDto {
   @IsOptional()
@@ -11,4 +12,8 @@ export class GetMembersFilterDTO extends BaseFilterDto {
   @Transform((id) => parseInt(id))
   @IsInt()
   club_id: number;
+
+  @IsOptional()
+  @IsEnum(Gender)
+  gender: Gender;
 }
