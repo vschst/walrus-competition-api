@@ -1,8 +1,8 @@
 import { IsInt } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class IdParamDto {
-  @Transform((id) => parseInt(id))
+export class IdParamDTO {
+  @Transform(({ value: id }) => parseInt(id))
   @IsInt()
   id: number;
 }

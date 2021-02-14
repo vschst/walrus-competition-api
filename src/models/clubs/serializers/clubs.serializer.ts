@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
 import { ClubView } from '@models/clubs/entities/club-view.entity';
-import { GetClubsListItem } from '@models/clubs/dto/clubs.dto';
+import { GetClubDataDTO } from '@models/clubs/dto/club.dto';
 
 @Injectable()
 export class ClubsSerializerService extends BaseSerializerService<
   ClubView,
-  GetClubsListItem
+  GetClubDataDTO
 > {
-  public async serialize(clubView: ClubView): Promise<GetClubsListItem> {
+  public async serialize(clubView: ClubView): Promise<GetClubDataDTO> {
     return {
       id: clubView.id,
       name: clubView.name,

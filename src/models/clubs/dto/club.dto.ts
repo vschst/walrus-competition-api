@@ -16,6 +16,10 @@ export class GetClubDataDTO {
   @IsString()
   @IsNotEmpty()
   location: string;
+
+  @ApiProperty()
+  @IsInt()
+  members_count: number;
 }
 
 export class GetClubResponseDTO {

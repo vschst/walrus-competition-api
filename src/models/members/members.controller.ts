@@ -19,15 +19,15 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { MemberService } from './member.service';
 import { MembersService } from './members.service';
 import { GetMembersFilterDTO } from './dto/members-filter.dto';
 import { GetMembersListResponseDTO } from '@models/members/dto/members.dto';
-import { MemberSerializerService } from './serializers/member.serializer';
 import { MembersSerializerService } from './serializers/members.serializer';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { CreateMemberRequestDTO } from '@models/members/dto/create-member.dto';
 import { GetMemberResponseDTO } from './dto/member.dto';
-import { IdParamDto } from '@common/dto/id-param.dto';
+import { IdParamDTO } from '@common/dto/id-param.dto';
 
 @ApiTags('members')
 @ApiBearerAuth()
@@ -36,8 +36,8 @@ import { IdParamDto } from '@common/dto/id-param.dto';
 @UseGuards(JwtAuthGuard)
 export class MembersController {
   constructor(
+    private readonly memberService: MemberService,
     private readonly membersService: MembersService,
-    private readonly memberSerializerService: MemberSerializerService,
     private readonly membersSerializerService: MembersSerializerService,
   ) {}
 
@@ -57,7 +57,7 @@ export class MembersController {
       phone,
     }: CreateMemberRequestDTO,
   ): Promise<GetMemberResponseDTO> {
-    const [isMemberCreated, member] = await this.membersService.createMember(
+    const [isMemberCreated, { id }] = await this.memberService.createMember(
       first_name,
       last_name,
       middle_name,
@@ -72,8 +72,14 @@ export class MembersController {
       throw new InternalServerErrorException('Could not create member');
     }
 
+    const [isMemberExist, member] = await this.membersService.findOne(id);
+
+    if (!isMemberExist) {
+      throw new NotFoundException('Created member not found');
+    }
+
     return {
-      data: this.memberSerializerService.markSerializableValue(member),
+      data: this.membersSerializerService.markSerializableValue(member),
     };
   }
 
@@ -88,6 +94,8 @@ export class MembersController {
       direction,
       club_id,
       gender,
+      min_age,
+      max_age,
       search,
     }: GetMembersFilterDTO,
   ): Promise<GetMembersListResponseDTO> {
@@ -98,6 +106,8 @@ export class MembersController {
       direction,
       club_id,
       gender,
+      min_age,
+      max_age,
       search,
     );
 
@@ -112,7 +122,7 @@ export class MembersController {
   @Get(':id')
   @ApiOperation({ summary: 'Get member by ID' })
   @ApiParam({ name: 'id', description: 'Member ID' })
-  async getMember(@Param() { id }: IdParamDto): Promise<GetMemberResponseDTO> {
+  async getMember(@Param() { id }: IdParamDTO): Promise<GetMemberResponseDTO> {
     const [isMemberExists, member] = await this.membersService.findOne(id);
 
     if (!isMemberExists) {
@@ -120,7 +130,7 @@ export class MembersController {
     }
 
     return {
-      data: this.memberSerializerService.markSerializableValue(member),
+      data: this.membersSerializerService.markSerializableValue(member),
     };
   }
 }

@@ -23,6 +23,7 @@ import { Gender } from '@common/enums/gender.enum';
       .addSelect('member.first_name', 'first_name')
       .addSelect('member.middle_name', 'middle_name')
       .addSelect('member.birthdate', 'birthdate')
+      .addSelect('EXTRACT(YEAR FROM AGE(member.birthdate))', 'age')
       .addSelect('member.gender', 'gender')
       .addSelect('member.club_id', 'club_id')
       .addSelect('club.name', 'club_name')
@@ -54,6 +55,10 @@ export class MemberView {
   @IsDate()
   @ViewColumn()
   birthdate: Date;
+
+  @IsInt()
+  @ViewColumn()
+  age: number;
 
   @IsEnum(Gender)
   @ViewColumn()

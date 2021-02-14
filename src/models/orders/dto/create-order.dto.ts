@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsDate,
+  IsEmail,
   IsEnum,
   IsInt,
   IsNotEmpty,
@@ -8,13 +10,19 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import { Serializable } from '@common/serializers/base.serializer';
+import { Transform, Type } from 'class-transformer';
 import { Gender } from '@common/enums/gender.enum';
 
-export class GetMemberDataDTO {
+export class CreateOrderDTO {
   @ApiProperty()
+  @Transform(({ value: id }) => parseInt(id))
   @IsInt()
-  id: number;
+  competition_id: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  first_name: string;
 
   @ApiProperty()
   @IsString()
@@ -23,48 +31,45 @@ export class GetMemberDataDTO {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  first_name: string;
-
-  @ApiProperty()
   @IsOptional()
-  @IsString()
   middle_name: string;
 
   @ApiProperty()
+  @Type(() => Date)
   @IsDate()
   birthdate: Date;
 
   @ApiProperty()
-  @IsInt()
-  age: number;
-
-  @ApiProperty()
   @IsEnum(Gender)
+  @IsNotEmpty()
   gender: Gender;
 
   @ApiProperty()
-  @IsInt()
-  club_id: number;
-
-  @ApiProperty()
+  @IsEmail()
   @IsString()
-  @IsNotEmpty()
-  club_name: string;
-
-  @ApiProperty()
   @IsOptional()
-  @IsString()
   email: string;
 
   @ApiProperty()
   @IsPhoneNumber('RU')
-  @IsOptional()
   @IsString()
+  @IsOptional()
   phone: string;
-}
 
-export class GetMemberResponseDTO {
-  @ApiProperty({ type: () => GetMemberDataDTO })
-  data: Serializable<GetMemberDataDTO>;
+  @ApiProperty()
+  @IsArray()
+  races: number[];
+
+  @ApiProperty()
+  @IsArray()
+  relays: number[];
+
+  @ApiProperty()
+  @IsArray()
+  cryathlons: number[];
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  additional: string;
 }

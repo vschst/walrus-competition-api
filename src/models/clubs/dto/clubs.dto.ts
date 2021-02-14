@@ -1,30 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { GetClubDataDTO } from './club.dto';
 import { Serializable } from '@common/serializers/base.serializer';
 
-export class GetClubsListItem {
-  @ApiProperty()
-  @IsInt()
-  id: number;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  location: string;
-
-  @ApiProperty()
-  @IsInt()
-  members_count: number;
-}
-
 export class GetClubsListResponseDTO {
-  @ApiProperty({ type: () => [GetClubsListItem] })
-  data: Serializable<GetClubsListItem[]>;
+  @ApiProperty({ type: () => [GetClubDataDTO] })
+  data: Serializable<GetClubDataDTO[]>;
 
   @ApiProperty()
   total: number;

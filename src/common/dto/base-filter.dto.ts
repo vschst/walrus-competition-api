@@ -1,14 +1,14 @@
-import { IsIn, IsInt, IsOptional, IsString, Length } from 'class-validator';
+import { IsIn, IsInt, IsOptional, IsString, MinLength } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class BaseFilterDto {
+export class BaseFilterDTO {
   @IsOptional()
-  @Transform((limit) => parseInt(limit))
+  @Transform(({ value: limit }) => parseInt(limit))
   @IsInt()
   limit = 10;
 
   @IsOptional()
-  @Transform((offset) => parseInt(offset))
+  @Transform(({ value: offset }) => parseInt(offset))
   @IsInt()
   offset = 0;
 
@@ -17,7 +17,7 @@ export class BaseFilterDto {
   direction = 'asc';
 
   @IsOptional()
-  @Length(3)
+  @MinLength(3)
   @IsString()
   search: string;
 }
