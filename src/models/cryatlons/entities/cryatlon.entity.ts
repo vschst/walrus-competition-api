@@ -3,10 +3,9 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  ManyToMany,
+  OneToMany,
   Column,
   JoinColumn,
-  JoinTable,
 } from 'typeorm';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { Competition } from '@models/competitions/entities/competition.entity';
@@ -23,9 +22,8 @@ export class Cryatlon extends BaseEntity {
   @JoinColumn({ name: 'competition_id' })
   competition: Competition;
 
-  @ManyToMany(() => Order, (order) => order.cryathlons)
-  @JoinTable({ name: 'order_cryathlons' })
-  order: Order[];
+  @OneToMany(() => Order, (order) => order.cryathlon)
+  orders: Order[];
 
   @IsString()
   @IsNotEmpty()

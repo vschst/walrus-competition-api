@@ -24,14 +24,17 @@ export class GetCompetitionDataDTO {
   @IsDate()
   end_date: Date;
 
+  @ApiProperty()
   @IsArray()
   @Type(() => GetRaceDataDTO)
   races: GetRaceDataDTO[];
 
+  @ApiProperty()
   @IsArray()
   @Type(() => GetRelayDataDTO)
   relays: GetRelayDataDTO[];
 
+  @ApiProperty()
   @IsArray()
   @Type(() => GetCryathlonDataDTO)
   cryathlons: GetCryathlonDataDTO[];

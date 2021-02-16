@@ -6,7 +6,7 @@ import {
   ManyToMany,
   Column,
   JoinColumn,
-  JoinTable
+  JoinTable,
 } from 'typeorm';
 import { IsInt, IsNotEmpty, IsString, IsDate } from 'class-validator';
 import { Competition } from '@models/competitions/entities/competition.entity';
@@ -23,7 +23,17 @@ export class Relay extends BaseEntity {
   competition: Competition;
 
   @ManyToMany(() => Order, (order) => order.relays)
-  @JoinTable({ name: 'order_relays' })
+  @JoinTable({
+    name: 'order_relays',
+    joinColumn: {
+      name: 'relay_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'order_id',
+      referencedColumnName: 'id',
+    },
+  })
   order: Order[];
 
   @IsString()

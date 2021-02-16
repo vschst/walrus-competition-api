@@ -1,4 +1,10 @@
-import { Controller, Get, NotFoundException, Param, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { CompetitionService } from './competition.service';
 import { CompetitionSerializer } from './serializers/competition.serializer';

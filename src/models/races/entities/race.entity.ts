@@ -6,7 +6,7 @@ import {
   ManyToMany,
   Column,
   JoinColumn,
-  JoinTable
+  JoinTable,
 } from 'typeorm';
 import {
   IsEnum,
@@ -33,7 +33,17 @@ export class Race extends BaseEntity {
   competition: Competition;
 
   @ManyToMany(() => Order, (order) => order.races)
-  @JoinTable({ name: 'order_races' })
+  @JoinTable({
+    name: 'order_races',
+    joinColumn: {
+      name: 'race_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'order_id',
+      referencedColumnName: 'id',
+    },
+  })
   order: Order[];
 
   @IsString()

@@ -35,6 +35,11 @@ export class CreateOrderDTO {
   middle_name: string;
 
   @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  club_name: string;
+
+  @ApiProperty()
   @Type(() => Date)
   @IsDate()
   birthdate: Date;
@@ -47,7 +52,7 @@ export class CreateOrderDTO {
   @ApiProperty()
   @IsEmail()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   email: string;
 
   @ApiProperty()
@@ -57,16 +62,20 @@ export class CreateOrderDTO {
   phone: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsArray()
   races: number[];
 
   @ApiProperty()
+  @IsOptional()
   @IsArray()
   relays: number[];
 
   @ApiProperty()
-  @IsArray()
-  cryathlons: number[];
+  @IsOptional()
+  @Transform(({ value: id }) => parseInt(id))
+  @IsInt()
+  cryathlon_id: number;
 
   @ApiProperty()
   @IsString()

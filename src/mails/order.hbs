@@ -1,0 +1,67 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая заявка на участие</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title is-1 has-text-weight-bold mb-3">
+            {{ competition_name }}
+        </h1>
+        <h2 class="title is-2 pb-4">
+            Новая заявка на участие
+        </h2>
+        <h3 class="title is-3">
+            Информация об участнике
+        </h3>
+        <table class="table is-bordered is-striped subtitle mt-2">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Фамилия:</td>
+                    <td>{{ participant.last_name }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Имя:</td>
+                    <td>{{ participant.first_name }}</td>
+                </tr>
+                {{#if participant.middle_name }}
+                <tr>
+                    <td class="has-text-weight-bold">Отчество:</td>
+                    <td>{{ participant.middle_name }}</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td class="has-text-weight-bold">Клуб:</td>
+                    <td>{{ participant.club_name }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">День рождения:</td>
+                    <td>{{ participant.birthdate }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Возраст:</td>
+                    <td>{{ participant.age }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Пол:</td>
+                    <td>{{ participant.gender }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">E-mail:</td>
+                    <td>{{ participant.email }}</td>
+                </tr>
+                {{#if participant.phone }}
+                <tr>
+                    <td class="has-text-weight-bold">Телефон:</td>
+                    <td>{{ participant.phone }}</td>
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

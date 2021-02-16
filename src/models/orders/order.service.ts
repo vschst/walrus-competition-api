@@ -1,12 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
 import { Gender } from '@common/enums/gender.enum';
 import { CompetitionService } from '@models/competitions/competition.service';
+import { OrderMailNotifyService } from './order-mail-notify.service';
 
 @Injectable()
 export class OrderService {
@@ -14,6 +15,7 @@ export class OrderService {
 
   constructor(
     private readonly competitionService: CompetitionService,
+    private readonly orderMailNotify: OrderMailNotifyService,
     @InjectRepository(Order)
     private orderRepository: Repository<Order>,
     @InjectRepository(Race)
@@ -31,11 +33,12 @@ export class OrderService {
     middle_name: string | null,
     birthdate: Date,
     gender: Gender,
+    club_name: string,
     email: string,
     phone: string,
-    races: number[],
-    relays: number[],
-    cryathlons: number[],
+    races: number[] | null,
+    relays: number[] | null,
+    cryathlon_id: number | null,
     additional: string | null,
   ): Promise<[boolean, string, Order]> {
     try {
@@ -48,20 +51,19 @@ export class OrderService {
         return [false, 'competition_not_found', null];
       }
 
-      const availableRaces = await this.raceRepository.findByIds(races);
-      const availableRelays = await this.relayRepository.findByIds(relays);
-      const availableCryathlons = await this.cryathlonRepository.findByIds(
-        cryathlons,
-      );
-
-      if (
-        availableRaces.length +
-          availableRelays.length +
-          availableCryathlons.length ===
-        0
-      ) {
-        return [false, 'distances_not_specified', null];
+      if (!races && !relays && !cryathlon_id) {
+        return [false, 'no_orders', null];
       }
+
+      const availableRaces = races
+        ? await this.raceRepository.findByIds(races)
+        : [];
+      const availableRelays = relays
+        ? await this.relayRepository.findByIds(relays)
+        : [];
+      const availableCryathlon = cryathlon_id
+        ? await this.cryathlonRepository.findOne(cryathlon_id)
+        : null;
 
       const order = new Order({
         competition,
@@ -69,17 +71,19 @@ export class OrderService {
         last_name,
         middle_name,
         birthdate,
+        club_name,
         gender,
         email,
         phone,
         races: availableRaces,
         relays: availableRelays,
-        cryathlons: availableCryathlons,
+        cryathlon: availableCryathlon,
         additional,
         processed: false,
       });
 
       await order.save();
+      await this.orderMailNotify.sendNewOrderNotify(order);
 
       return [true, '', order];
     } catch (error) {

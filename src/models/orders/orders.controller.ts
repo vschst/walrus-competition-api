@@ -26,11 +26,12 @@ export class OrdersController {
       middle_name,
       birthdate,
       gender,
+      club_name,
       email,
       phone,
       races,
       relays,
-      cryathlons,
+      cryathlon_id,
       additional,
     }: CreateOrderDTO,
   ): Promise<void> {
@@ -41,11 +42,12 @@ export class OrdersController {
       middle_name,
       birthdate,
       gender,
+      club_name,
       email,
       phone,
       races,
       relays,
-      cryathlons,
+      cryathlon_id,
       additional,
     );
 

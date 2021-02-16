@@ -40,8 +40,9 @@ export class Order extends BaseEntity {
   @ManyToMany(() => Relay, (relay) => relay.order)
   relays: Relay[];
 
-  @ManyToMany(() => Cryatlon, (cryathlon) => cryathlon.order)
-  cryathlons: Cryatlon[];
+  @ManyToOne(() => Cryatlon, (cryathlon) => cryathlon.orders)
+  @JoinColumn({ name: 'cryathlon_id' })
+  cryathlon: Cryatlon | null;
 
   @IsString()
   @IsNotEmpty()
@@ -67,10 +68,14 @@ export class Order extends BaseEntity {
   @Column({ type: 'enum', enum: Gender })
   gender: Gender;
 
+  @IsString()
+  @IsString()
+  @Column()
+  club_name: string;
+
   @IsEmail()
   @IsString()
-  @IsOptional()
-  @Column({ nullable: true })
+  @Column()
   email: string;
 
   @IsPhoneNumber('RU')
