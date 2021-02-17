@@ -40,6 +40,11 @@ export class CreateOrderDTO {
   club_name: string;
 
   @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  location: string;
+
+  @ApiProperty()
   @Type(() => Date)
   @IsDate()
   birthdate: Date;

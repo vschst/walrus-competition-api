@@ -1,15 +1,17 @@
 import { Gender } from '@common/enums/gender.enum';
+import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
 
-export const formattedBirthdate = (birthdate: Date): string => {
-  const year = birthdate.getFullYear();
-  const month = (1 + birthdate.getMonth()).toString().padStart(2, '0');
-  const day = birthdate.getDate().toString().padStart(2, '0');
+export const formattedDate = (birthdate: Date): string => {
+  const date = new Date(birthdate);
+  const year = date.getFullYear();
+  const month = (1 + date.getMonth()).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
 
   return day + '.' + month + '.' + year;
 };
 
 export const ageFromBirthdate = (birthdate: Date): number => {
-  const ageDiff = Date.now() - birthdate.getTime();
+  const ageDiff = Date.now() - new Date(birthdate).getTime();
   const ageDate = new Date(ageDiff);
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -23,6 +25,36 @@ export const genderText = (gender: Gender): string => {
       return 'Женщина';
     case Gender.Male:
       return 'Мужчина';
+  }
+
+  return '';
+};
+
+export const swimmingStyleText = (swimmingStyle: SwimmingStyles): string => {
+  switch (swimmingStyle) {
+    case SwimmingStyles.Breaststroke:
+      return 'Брасс';
+    case SwimmingStyles.Butterfly:
+      return 'Баттерфляй';
+    case SwimmingStyles.Crawl:
+      return 'Кроль';
+    case SwimmingStyles.Freestyle:
+      return 'Вольный стиль';
+  }
+
+  return '';
+};
+
+export const ageGroupText = (
+  minAge: number | null,
+  maxAge: number | null,
+): string => {
+  if (minAge !== null && maxAge !== null) {
+    return minAge + ' - ' + maxAge;
+  } else if (minAge === null && maxAge !== null) {
+    return 'до ' + maxAge;
+  } else if (minAge !== null && maxAge === null) {
+    return 'от ' + minAge;
   }
 
   return '';

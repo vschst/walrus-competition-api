@@ -69,9 +69,14 @@ export class Order extends BaseEntity {
   gender: Gender;
 
   @IsString()
-  @IsString()
+  @IsNotEmpty()
   @Column()
   club_name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  location: string;
 
   @IsEmail()
   @IsString()

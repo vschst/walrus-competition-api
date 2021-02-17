@@ -15,6 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         MAIL_USERNAME: Joi.string().min(3),
         MAIL_PASSWORD: Joi.string().min(8),
         MAIL_FROM: Joi.string(),
+        MAIL_NOTIFY_EMAIL: Joi.string().email(),
       }),
     }),
   ],

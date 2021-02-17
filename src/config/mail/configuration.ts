@@ -7,4 +7,5 @@ export default registerAs('mail', () => ({
   username: process.env.MAIL_USERNAME,
   password: process.env.MAIL_PASSWORD,
   from: process.env.MAIL_FROM,
+  notifyEmail: process.env.MAIL_NOTIFY_EMAIL
 }));

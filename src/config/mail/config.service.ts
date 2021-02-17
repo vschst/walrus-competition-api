@@ -28,4 +28,8 @@ export class MailConfigService {
   get from(): string {
     return this.configService.get<string>('mail.from');
   }
+
+  get notifyEmail(): string {
+    return this.configService.get<string>('mail.notifyEmail');
+  }
 }

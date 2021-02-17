@@ -61,6 +61,100 @@
                 {{/if}}
             </tbody>
         </table>
+        <h3 class="title is-3 mt-6">
+            Выбранные дистанции
+        </h3>
+        {{#each races}}
+        <h4 class="title is-4 mt-2">
+            {{ name }}
+        </h4>
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+            <tr>
+                <td class="has-text-weight-bold">Длина (метров):</td>
+                <td>{{ distance }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Стиль:</td>
+                <td>{{ swimming_style }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Пол:</td>
+                <td>{{ gender }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Возрастная группа:</td>
+                <td>{{ age_group }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Дата:</td>
+                <td>{{ date }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{/each}}
+        {{#each relays}}
+        <h4 class="title is-4 mt-2">
+            {{ name }}
+        </h4>
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Длина (метров):</td>
+                    <td>{{ distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Участников:</td>
+                    <td>{{ count }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Дата:</td>
+                    <td>{{ date }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{/each}}
+        {{#if cryathlon}}
+        <h4 class="title is-4 mt-2">
+            {{ cryathlon.name }}
+        </h4>
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Бег (метров):</td>
+                    <td>{{ cryathlon.run_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Лыжи (метров):</td>
+                    <td>{{ cryathlon.ski_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Плавание (метров):</td>
+                    <td>{{ cryathlon.water_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Босиком (метров):</td>
+                    <td>{{ cryathlon.barefoot_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Пол:</td>
+                    <td>{{ cryathlon.gender }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Дата:</td>
+                    <td>{{ cryathlon.date }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{/if}}
+        {{#if additional}}
+        <h3 class="title is-3 mt-6">
+            Дополнительная информация
+        </h3>
+        <div class="content">
+            <blockquote>{{ additional }}</blockquote>
+        </div>
+        {{/if}}
     </div>
 </section>
 </body>
