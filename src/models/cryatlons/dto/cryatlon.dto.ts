@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { Gender } from '@common/enums/gender.enum';
 
-export class GetCryathlonDataDTO {
+export class GetCryatlonDataDTO {
   @ApiProperty()
   @IsInt()
   id: number;

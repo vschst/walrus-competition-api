@@ -18,7 +18,7 @@ export class CompetitionSerializer extends BaseSerializerService<
       end_date: competition.end_date,
       races: competition.races,
       relays: competition.relays,
-      cryathlons: competition.cryatlons,
+      cryatlons: competition.cryatlons,
     };
   }
 }

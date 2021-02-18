@@ -16,6 +16,8 @@ import {
   Min,
   Max,
   IsDate,
+  IsOptional,
+  IsBoolean,
 } from 'class-validator';
 import { Competition } from '@models/competitions/entities/competition.entity';
 import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
@@ -68,14 +70,20 @@ export class Race extends BaseEntity {
   @IsInt()
   @Min(0)
   @Max(99)
-  @Column()
+  @IsOptional()
+  @Column({ nullable: true })
   min_age: number;
 
   @IsInt()
   @Min(1)
   @Max(100)
-  @Column()
+  @IsOptional()
+  @Column({ nullable: true })
   max_age: number;
+
+  @IsBoolean()
+  @Column({ type: 'boolean' })
+  para_swimmers: boolean;
 
   @IsDate()
   @Column({ type: 'date' })

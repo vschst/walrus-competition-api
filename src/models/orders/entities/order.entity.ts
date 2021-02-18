@@ -40,9 +40,9 @@ export class Order extends BaseEntity {
   @ManyToMany(() => Relay, (relay) => relay.order)
   relays: Relay[];
 
-  @ManyToOne(() => Cryatlon, (cryathlon) => cryathlon.orders)
-  @JoinColumn({ name: 'cryathlon_id' })
-  cryathlon: Cryatlon | null;
+  @ManyToOne(() => Cryatlon, (cryatlon) => cryatlon.orders)
+  @JoinColumn({ name: 'cryatlon_id' })
+  cryatlon: Cryatlon | null;
 
   @IsString()
   @IsNotEmpty()
@@ -67,6 +67,10 @@ export class Order extends BaseEntity {
   @IsNotEmpty()
   @Column({ type: 'enum', enum: Gender })
   gender: Gender;
+
+  @IsBoolean()
+  @Column({ type: 'boolean' })
+  para_swimmer: boolean;
 
   @IsString()
   @IsNotEmpty()

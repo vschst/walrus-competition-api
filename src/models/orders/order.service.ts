@@ -23,7 +23,7 @@ export class OrderService {
     @InjectRepository(Relay)
     private relayRepository: Repository<Relay>,
     @InjectRepository(Cryatlon)
-    private cryathlonRepository: Repository<Cryatlon>,
+    private cryatlonRepository: Repository<Cryatlon>,
   ) {}
 
   async createOrder(
@@ -33,13 +33,14 @@ export class OrderService {
     middle_name: string | null,
     birthdate: Date,
     gender: Gender,
+    para_swimmer: boolean,
     club_name: string,
     location: string,
     email: string,
     phone: string,
     races: number[] | null,
     relays: number[] | null,
-    cryathlon_id: number | null,
+    cryatlon_id: number | null,
     additional: string | null,
   ): Promise<[boolean, string, Order]> {
     try {
@@ -52,7 +53,7 @@ export class OrderService {
         return [false, 'competition_not_found', null];
       }
 
-      if (!races && !relays && !cryathlon_id) {
+      if (!races && !relays && !cryatlon_id) {
         return [false, 'no_orders', null];
       }
 
@@ -62,8 +63,8 @@ export class OrderService {
       const availableRelays = relays
         ? await this.relayRepository.findByIds(relays)
         : [];
-      const availableCryathlon = cryathlon_id
-        ? await this.cryathlonRepository.findOne(cryathlon_id)
+      const availableCryatlon = cryatlon_id
+        ? await this.cryatlonRepository.findOne(cryatlon_id)
         : null;
 
       const order = new Order({
@@ -72,6 +73,7 @@ export class OrderService {
         last_name,
         middle_name,
         birthdate,
+        para_swimmer,
         club_name,
         location,
         gender,
@@ -79,7 +81,7 @@ export class OrderService {
         phone,
         races: availableRaces,
         relays: availableRelays,
-        cryathlon: availableCryathlon,
+        cryatlon: availableCryatlon,
         additional,
         processed: false,
       });

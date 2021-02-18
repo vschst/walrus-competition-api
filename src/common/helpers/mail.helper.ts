@@ -52,10 +52,10 @@ export const ageGroupText = (
   if (minAge !== null && maxAge !== null) {
     return minAge + ' - ' + maxAge;
   } else if (minAge === null && maxAge !== null) {
-    return 'до ' + maxAge;
+    return 'до ' + (maxAge + 1);
   } else if (minAge !== null && maxAge === null) {
     return 'от ' + minAge;
   }
 
-  return '';
+  return 'Любой возраст';
 };

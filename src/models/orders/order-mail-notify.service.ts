@@ -30,11 +30,12 @@ export class OrderMailNotifyService {
       club_name,
       birthdate,
       gender,
+      para_swimmer,
       email,
       phone,
       races,
       relays,
-      cryathlon,
+      cryatlon,
       additional,
     } = order;
 
@@ -45,6 +46,7 @@ export class OrderMailNotifyService {
       context: {
         competition_name: competition.name,
         participant: {
+          para_swimmer,
           last_name,
           first_name,
           middle_name,
@@ -57,25 +59,28 @@ export class OrderMailNotifyService {
         },
         races: races.map((race: Race) => ({
           name: race.name,
+          distance: race.distance,
           swimming_style: swimmingStyleText(race.swimming_style),
+          para_swimmers: race.para_swimmers,
           gender: genderText(race.gender),
           age_group: ageGroupText(race.min_age, race.max_age),
           date: formattedDate(race.date),
         })),
         relays: relays.map((relay: Relay) => ({
           name: relay.name,
+          distance: relay.distance,
           count: relay.count,
           date: formattedDate(relay.date),
         })),
-        cryathlon: cryathlon
+        cryatlon: cryatlon
           ? {
-              name: cryathlon.name,
-              run_distance: cryathlon.run_distance,
-              ski_distance: cryathlon.ski_distance,
-              water_distance: cryathlon.water_distance,
-              barefoot_distance: cryathlon.barefoot_distance,
-              gender: genderText(cryathlon.gender),
-              date: formattedDate(cryathlon.date),
+              name: cryatlon.name,
+              run_distance: cryatlon.run_distance,
+              ski_distance: cryatlon.ski_distance,
+              water_distance: cryatlon.water_distance,
+              barefoot_distance: cryatlon.barefoot_distance,
+              gender: genderText(cryatlon.gender),
+              date: formattedDate(cryatlon.date),
             }
           : null,
         additional,

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsArray,
+  IsBoolean,
   IsDate,
   IsEmail,
   IsEnum,
@@ -33,6 +33,10 @@ export class CreateOrderDTO {
   @IsString()
   @IsOptional()
   middle_name: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  para_swimmer: boolean;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -68,19 +72,19 @@ export class CreateOrderDTO {
 
   @ApiProperty()
   @IsOptional()
-  @IsArray()
+  @IsInt({ each: true })
   races: number[];
 
   @ApiProperty()
   @IsOptional()
-  @IsArray()
+  @IsInt({ each: true })
   relays: number[];
 
   @ApiProperty()
   @IsOptional()
   @Transform(({ value: id }) => parseInt(id))
   @IsInt()
-  cryathlon_id: number;
+  cryatlon_id: number;
 
   @ApiProperty()
   @IsString()

@@ -3,7 +3,7 @@ import { IsArray, IsDate, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { GetRaceDataDTO } from '@models/races/dto/race.dto';
 import { GetRelayDataDTO } from '@models/relays/dto/relay.dto';
-import { GetCryathlonDataDTO } from '@models/cryatlons/dto/cryathlon.dto';
+import { GetCryatlonDataDTO } from '@models/cryatlons/dto/cryatlon.dto';
 import { Serializable } from '@common/serializers/base.serializer';
 
 export class GetCompetitionDataDTO {
@@ -36,8 +36,8 @@ export class GetCompetitionDataDTO {
 
   @ApiProperty()
   @IsArray()
-  @Type(() => GetCryathlonDataDTO)
-  cryathlons: GetCryathlonDataDTO[];
+  @Type(() => GetCryatlonDataDTO)
+  cryatlons: GetCryatlonDataDTO[];
 }
 
 export class GetCompetitionResponseDTO {

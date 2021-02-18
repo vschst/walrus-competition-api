@@ -22,7 +22,7 @@ export class Cryatlon extends BaseEntity {
   @JoinColumn({ name: 'competition_id' })
   competition: Competition;
 
-  @OneToMany(() => Order, (order) => order.cryathlon)
+  @OneToMany(() => Order, (order) => order.cryatlon)
   orders: Order[];
 
   @IsString()

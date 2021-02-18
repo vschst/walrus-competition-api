@@ -17,6 +17,9 @@
         <h3 class="title is-3">
             Информация об участнике
         </h3>
+        {{#if participant.para_swimmer }}
+        <span class="tag is-info is-medium">Парапловец</span>
+        {{/if}}
         <table class="table is-bordered is-striped subtitle mt-2">
             <tbody>
                 <tr>
@@ -68,6 +71,9 @@
         <h4 class="title is-4 mt-2">
             {{ name }}
         </h4>
+        {{#if para_swimmers }}
+        <span class="tag is-info">Могут участвовать парапловцы</span>
+        {{/if}}
         <table class="table is-bordered is-striped subtitle mt-1">
             <tbody>
             <tr>
@@ -114,35 +120,35 @@
             </tbody>
         </table>
         {{/each}}
-        {{#if cryathlon}}
+        {{#if cryatlon}}
         <h4 class="title is-4 mt-2">
-            {{ cryathlon.name }}
+            {{ cryatlon.name }}
         </h4>
         <table class="table is-bordered is-striped subtitle mt-1">
             <tbody>
                 <tr>
                     <td class="has-text-weight-bold">Бег (метров):</td>
-                    <td>{{ cryathlon.run_distance }}</td>
+                    <td>{{ cryatlon.run_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Лыжи (метров):</td>
-                    <td>{{ cryathlon.ski_distance }}</td>
+                    <td>{{ cryatlon.ski_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Плавание (метров):</td>
-                    <td>{{ cryathlon.water_distance }}</td>
+                    <td>{{ cryatlon.water_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Босиком (метров):</td>
-                    <td>{{ cryathlon.barefoot_distance }}</td>
+                    <td>{{ cryatlon.barefoot_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Пол:</td>
-                    <td>{{ cryathlon.gender }}</td>
+                    <td>{{ cryatlon.gender }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Дата:</td>
-                    <td>{{ cryathlon.date }}</td>
+                    <td>{{ cryatlon.date }}</td>
                 </tr>
             </tbody>
         </table>

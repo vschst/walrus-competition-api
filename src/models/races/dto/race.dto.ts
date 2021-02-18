@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
 import { Gender } from '@common/enums/gender.enum';
 
@@ -26,10 +33,12 @@ export class GetRaceDataDTO {
   gender: Gender;
 
   @ApiProperty()
+  @IsOptional()
   @IsInt()
   min_age: number;
 
   @ApiProperty()
+  @IsOptional()
   @IsInt()
   max_age: number;
 
