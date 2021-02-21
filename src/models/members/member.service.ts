@@ -56,7 +56,9 @@ export class MemberService {
   }
 
   async findOne(id: number): Promise<[boolean, Member]> {
-    const member = await this.memberRepository.findOne(id);
+    const member = await this.memberRepository.findOne(id, {
+      relations: ['club'],
+    });
 
     if (!member) {
       return [false, null];

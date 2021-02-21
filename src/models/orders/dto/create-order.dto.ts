@@ -82,9 +82,8 @@ export class CreateOrderDTO {
 
   @ApiProperty()
   @IsOptional()
-  @Transform(({ value: id }) => parseInt(id))
-  @IsInt()
-  cryatlon_id: number;
+  @IsInt({ each: true })
+  cryatlons: number[];
 
   @ApiProperty()
   @IsString()

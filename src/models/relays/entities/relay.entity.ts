@@ -34,7 +34,7 @@ export class Relay extends BaseEntity {
       referencedColumnName: 'id',
     },
   })
-  order: Order[];
+  orders: Order[];
 
   @IsString()
   @IsNotEmpty()

@@ -124,39 +124,39 @@
             </tbody>
         </table>
         {{/each}}
-        {{#if cryatlon}}
+        {{#each cryatlons}}
         <h4 class="title is-4 mt-2">
-            {{ cryatlon.name }}
+            {{ name }}
         </h4>
         <table class="table is-bordered is-striped subtitle mt-1">
             <tbody>
                 <tr>
                     <td class="has-text-weight-bold">Бег (метров):</td>
-                    <td>{{ cryatlon.run_distance }}</td>
+                    <td>{{ run_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Лыжи (метров):</td>
-                    <td>{{ cryatlon.ski_distance }}</td>
+                    <td>{{ ski_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Плавание (метров):</td>
-                    <td>{{ cryatlon.water_distance }}</td>
+                    <td>{{ water_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Босиком (метров):</td>
-                    <td>{{ cryatlon.barefoot_distance }}</td>
+                    <td>{{ barefoot_distance }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Пол:</td>
-                    <td>{{ cryatlon.gender }}</td>
+                    <td>{{ gender }}</td>
                 </tr>
                 <tr>
                     <td class="has-text-weight-bold">Дата:</td>
-                    <td>{{ cryatlon.date }}</td>
+                    <td>{{ date }}</td>
                 </tr>
             </tbody>
         </table>
-        {{/if}}
+        {{/each}}
         {{#if additional}}
         <h3 class="title is-3 mt-6">
             Дополнительная информация

@@ -11,6 +11,7 @@ import {
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { MailConfigService } from '@config/mail/config.service';
+import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
 
 @Injectable()
 export class OrderMailNotifyService {
@@ -36,7 +37,7 @@ export class OrderMailNotifyService {
       phone,
       races,
       relays,
-      cryatlon,
+      cryatlons,
       additional,
     } = order;
 
@@ -74,17 +75,15 @@ export class OrderMailNotifyService {
           count: relay.count,
           date: formattedDate(relay.date),
         })),
-        cryatlon: cryatlon
-          ? {
-              name: cryatlon.name,
-              run_distance: cryatlon.run_distance,
-              ski_distance: cryatlon.ski_distance,
-              water_distance: cryatlon.water_distance,
-              barefoot_distance: cryatlon.barefoot_distance,
-              gender: genderText(cryatlon.gender),
-              date: formattedDate(cryatlon.date),
-            }
-          : null,
+        cryatlons: cryatlons.map((cryatlon: Cryatlon) => ({
+          name: cryatlon.name,
+          run_distance: cryatlon.run_distance,
+          ski_distance: cryatlon.ski_distance,
+          water_distance: cryatlon.water_distance,
+          barefoot_distance: cryatlon.barefoot_distance,
+          gender: genderText(cryatlon.gender),
+          date: formattedDate(cryatlon.date),
+        })),
         additional,
       },
     });

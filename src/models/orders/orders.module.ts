@@ -3,7 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailConfigModule } from '@config/mail/config.module';
 import { Competition } from '@models/competitions/entities/competition.entity';
 import { Order } from './entities/order.entity';
+import { OrderView } from './entities/order-view.entity';
 import { OrderService } from './order.service';
+import { OrdersService } from './orders.service';
+import { OrderSerializerService } from './serializers/order.serializer';
+import { OrdersSerializerService } from './serializers/orders.serializer';
+import { PublicOrdersSerializerService } from './serializers/public-orders.serializer';
 import { MailConfigService } from '@config/mail/config.service';
 import { OrderMailNotifyService } from './order-mail-notify.service';
 import { CompetitionService } from '@models/competitions/competition.service';
@@ -14,7 +19,14 @@ import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Competition, Order, Race, Relay, Cryatlon]),
+    TypeOrmModule.forFeature([
+      Competition,
+      Order,
+      OrderView,
+      Race,
+      Relay,
+      Cryatlon,
+    ]),
     MailConfigModule,
   ],
   providers: [
@@ -22,6 +34,10 @@ import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
     MailConfigService,
     OrderMailNotifyService,
     OrderService,
+    OrdersService,
+    OrderSerializerService,
+    OrdersSerializerService,
+    PublicOrdersSerializerService
   ],
   controllers: [OrdersController],
 })

@@ -26,8 +26,12 @@ export class ClubService {
     }
   }
 
-  async findOne(id: number): Promise<[boolean, Club]> {
-    const club = await this.clubRepository.findOne(id);
+  async findOne(id: number, relations = false): Promise<[boolean, Club]> {
+    const club = await this.clubRepository.findOne(id, {
+      ...(relations && {
+        relations: ['members'],
+      }),
+    });
 
     if (!club) {
       return [false, null];

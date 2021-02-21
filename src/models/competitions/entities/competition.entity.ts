@@ -5,7 +5,13 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { IsDate, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
@@ -21,6 +27,11 @@ export class Competition extends BaseEntity {
   @IsNotEmpty()
   @Column()
   name: string;
+
+  @IsString()
+  @IsOptional()
+  @Column({ nullable: true })
+  description: string;
 
   @IsDate()
   @Column({ type: 'date' })

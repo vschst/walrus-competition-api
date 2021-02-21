@@ -7,85 +7,90 @@ import {
   IsInt,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
 } from 'class-validator';
 import { Gender } from '@common/enums/gender.enum';
-import { Expose } from 'class-transformer';
+import { OrderStatuses } from '../enums/order-statuses.enum';
+import { Transform } from 'class-transformer';
 
-export class GetMemberListItemDTO {
+export class GetOrderListItemDTO {
   @ApiProperty()
-  @Expose()
   @IsInt()
   id: number;
 
   @ApiProperty()
-  @Expose()
+  @IsInt()
+  competition_id: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  competition_name: string;
+
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   last_name: string;
 
   @ApiProperty()
-  @Expose()
   @IsString()
   @IsNotEmpty()
   first_name: string;
 
   @ApiProperty()
-  @Expose()
   @IsOptional()
   @IsString()
   middle_name: string;
 
   @ApiProperty()
-  @Expose()
   @IsDate()
   birthdate: Date;
 
   @ApiProperty()
-  @Expose()
   @IsEnum(Gender)
   gender: Gender;
 
   @ApiProperty()
-  @Expose()
   @IsBoolean()
   para_swimmer: boolean;
 
   @ApiProperty()
-  @Expose()
-  @IsInt()
-  club_id: number;
-
-  @ApiProperty()
-  @Expose()
   @IsString()
   @IsNotEmpty()
   club_name: string;
 
   @ApiProperty()
-  @Expose()
-  @IsOptional()
   @IsString()
-  email: string;
-
-  @ApiProperty()
-  @Expose()
-  @IsPhoneNumber('RU')
-  @IsOptional()
-  @IsString()
-  phone: string;
-
-  @ApiProperty()
-  @Expose()
-  @IsOptional()
-  @IsString()
+  @IsNotEmpty()
   location: string;
+
+  @ApiProperty()
+  @Transform(({ value: count }) => parseInt(count))
+  @IsInt()
+  races_count: number;
+
+  @ApiProperty()
+  @Transform(({ value: count }) => parseInt(count))
+  @IsInt()
+  relays_count: number;
+
+  @ApiProperty()
+  @Transform(({ value: count }) => parseInt(count))
+  @IsInt()
+  cryatlons_count: number;
+
+  @ApiProperty()
+  @IsEnum(OrderStatuses)
+  status: OrderStatuses;
+
+  @ApiProperty()
+  @IsDate()
+  created_at: Date;
 }
 
-export class GetMembersListResponseDTO {
-  @ApiProperty({ type: () => [GetMemberListItemDTO] })
-  data: Serializable<GetMemberListItemDTO[]>;
+export class GetOrdersListResponseDTO {
+  @ApiProperty({ type: () => [GetOrderListItemDTO] })
+  data: Serializable<GetOrderListItemDTO[]>;
 
   @ApiProperty()
   total: number;

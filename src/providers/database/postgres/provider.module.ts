@@ -14,6 +14,7 @@ import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
 import { Order } from '@models/orders/entities/order.entity';
+import { OrderView } from '@models/orders/entities/order-view.entity';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { Order } from '@models/orders/entities/order.entity';
             Relay,
             Cryatlon,
             Order,
+            OrderView,
           ],
           synchronize: true,
         };

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
 import { Competition } from '@models/competitions/entities/competition.entity';
 import { GetCompetitionDataDTO } from '@models/competitions/dto/competition.dto';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class CompetitionSerializer extends BaseSerializerService<
@@ -11,14 +12,6 @@ export class CompetitionSerializer extends BaseSerializerService<
   public async serialize(
     competition: Competition,
   ): Promise<GetCompetitionDataDTO> {
-    return {
-      id: competition.id,
-      name: competition.name,
-      start_date: competition.start_date,
-      end_date: competition.end_date,
-      races: competition.races,
-      relays: competition.relays,
-      cryatlons: competition.cryatlons,
-    };
+    return plainToClass(GetCompetitionDataDTO, competition)
   }
 }

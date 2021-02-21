@@ -2,6 +2,7 @@ import { ViewEntity, Connection, ViewColumn } from 'typeorm';
 import { Member } from './member.entity';
 import { Club } from '@models/clubs/entities/club.entity';
 import {
+  IsBoolean,
   IsDate,
   IsEmail,
   IsEnum,
@@ -25,10 +26,12 @@ import { Gender } from '@common/enums/gender.enum';
       .addSelect('member.birthdate', 'birthdate')
       .addSelect('EXTRACT(YEAR FROM AGE(member.birthdate))', 'age')
       .addSelect('member.gender', 'gender')
+      .addSelect('member.para_swimmer', 'para_swimmer')
       .addSelect('member.club_id', 'club_id')
       .addSelect('club.name', 'club_name')
       .addSelect('member.email', 'email')
       .addSelect('member.phone', 'phone')
+      .addSelect('member.location', 'location')
       .from(Member, 'member')
       .innerJoin(Club, 'club', 'club.id = member.club_id'),
 })
@@ -64,6 +67,10 @@ export class MemberView {
   @ViewColumn()
   gender: Gender;
 
+  @IsBoolean()
+  @ViewColumn()
+  para_swimmer: boolean;
+
   @IsInt()
   @ViewColumn()
   club_id: number;
@@ -78,6 +85,11 @@ export class MemberView {
   @IsOptional()
   @ViewColumn()
   email: string;
+
+  @IsOptional()
+  @IsString()
+  @ViewColumn()
+  location: string;
 
   @IsPhoneNumber('RU')
   @IsString()

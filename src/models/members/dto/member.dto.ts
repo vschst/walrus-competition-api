@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsDate,
   IsEnum,
   IsInt,
@@ -36,8 +37,8 @@ export class GetMemberDataDTO {
   birthdate: Date;
 
   @ApiProperty()
-  @IsInt()
-  age: number;
+  @IsBoolean()
+  para_swimmer: boolean;
 
   @ApiProperty()
   @IsEnum(Gender)
@@ -62,6 +63,11 @@ export class GetMemberDataDTO {
   @IsOptional()
   @IsString()
   phone: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  location: string;
 }
 
 export class GetMemberResponseDTO {

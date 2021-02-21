@@ -23,6 +23,7 @@ import { Gender } from '@common/enums/gender.enum';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { OrderStatuses } from '../enums/order-statuses.enum';
 
 @Entity({ name: 'orders' })
 export class Order extends BaseEntity {
@@ -34,15 +35,14 @@ export class Order extends BaseEntity {
   @JoinColumn({ name: 'competition_id' })
   competition: Competition;
 
-  @ManyToMany(() => Race, (race) => race.order)
+  @ManyToMany(() => Race, (race) => race.orders)
   races: Race[];
 
-  @ManyToMany(() => Relay, (relay) => relay.order)
+  @ManyToMany(() => Relay, (relay) => relay.orders)
   relays: Relay[];
 
-  @ManyToOne(() => Cryatlon, (cryatlon) => cryatlon.orders)
-  @JoinColumn({ name: 'cryatlon_id' })
-  cryatlon: Cryatlon | null;
+  @ManyToMany(() => Cryatlon, (cryatlon) => cryatlon.orders)
+  cryatlons: Cryatlon[];
 
   @IsString()
   @IsNotEmpty()
@@ -98,9 +98,14 @@ export class Order extends BaseEntity {
   @Column({ nullable: true })
   additional: string;
 
-  @IsBoolean()
-  @Column({ type: 'boolean' })
-  processed: boolean;
+  @IsEnum(OrderStatuses)
+  @IsNotEmpty()
+  @Column({ type: 'enum', enum: OrderStatuses })
+  status: OrderStatuses;
+
+  @IsDate()
+  @Column({ type: 'timestamp' })
+  created_at: Date;
 
   constructor(order: Partial<Order>) {
     super();

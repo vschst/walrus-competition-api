@@ -14,16 +14,6 @@ export class MembersService {
     private membersRepository: Repository<MemberView>,
   ) {}
 
-  async findOne(id: number): Promise<[boolean, MemberView]> {
-    const member = await this.membersRepository.findOne({ id });
-
-    if (!member) {
-      return [false, null];
-    }
-
-    return [true, member];
-  }
-
   async findAll(
     limit = 10,
     offset = 0,

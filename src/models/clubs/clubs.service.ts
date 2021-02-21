@@ -12,16 +12,6 @@ export class ClubsService {
     private clubsRepository: Repository<ClubView>,
   ) {}
 
-  async findOne(id: number): Promise<[boolean, ClubView]> {
-    const club = await this.clubsRepository.findOne({ id });
-
-    if (!club) {
-      return [false, null];
-    }
-
-    return [true, club];
-  }
-
   async findAll(
     limit = 10,
     offset = 0,

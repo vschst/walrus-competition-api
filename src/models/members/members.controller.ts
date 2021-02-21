@@ -23,6 +23,7 @@ import { MemberService } from './member.service';
 import { MembersService } from './members.service';
 import { GetMembersFilterDTO } from './dto/members-filter.dto';
 import { GetMembersListResponseDTO } from '@models/members/dto/members.dto';
+import { MemberSerializerService } from './serializers/member.serializer';
 import { MembersSerializerService } from './serializers/members.serializer';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { CreateMemberRequestDTO } from '@models/members/dto/create-member.dto';
@@ -38,6 +39,7 @@ export class MembersController {
   constructor(
     private readonly memberService: MemberService,
     private readonly membersService: MembersService,
+    private readonly memberSerializerService: MemberSerializerService,
     private readonly membersSerializerService: MembersSerializerService,
   ) {}
 
@@ -57,7 +59,7 @@ export class MembersController {
       phone,
     }: CreateMemberRequestDTO,
   ): Promise<GetMemberResponseDTO> {
-    const [isMemberCreated, { id }] = await this.memberService.createMember(
+    const [isMemberCreated, member] = await this.memberService.createMember(
       first_name,
       last_name,
       middle_name,
@@ -72,14 +74,8 @@ export class MembersController {
       throw new InternalServerErrorException('Could not create member');
     }
 
-    const [isMemberExist, member] = await this.membersService.findOne(id);
-
-    if (!isMemberExist) {
-      throw new NotFoundException('Created member not found');
-    }
-
     return {
-      data: this.membersSerializerService.markSerializableValue(member),
+      data: this.memberSerializerService.markSerializableValue(member),
     };
   }
 
@@ -123,14 +119,14 @@ export class MembersController {
   @ApiOperation({ summary: 'Get member by ID' })
   @ApiParam({ name: 'id', description: 'Member ID' })
   async getMember(@Param() { id }: IdParamDTO): Promise<GetMemberResponseDTO> {
-    const [isMemberExists, member] = await this.membersService.findOne(id);
+    const [isMemberExists, member] = await this.memberService.findOne(id);
 
     if (!isMemberExists) {
       throw new NotFoundException('Member not found');
     }
 
     return {
-      data: this.membersSerializerService.markSerializableValue(member),
+      data: this.memberSerializerService.markSerializableValue(member),
     };
   }
 }

@@ -8,6 +8,7 @@ import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
 import { Gender } from '@common/enums/gender.enum';
 import { CompetitionService } from '@models/competitions/competition.service';
 import { OrderMailNotifyService } from './order-mail-notify.service';
+import { OrderStatuses } from './enums/order-statuses.enum';
 
 @Injectable()
 export class OrderService {
@@ -40,7 +41,7 @@ export class OrderService {
     phone: string,
     races: number[] | null,
     relays: number[] | null,
-    cryatlon_id: number | null,
+    cryatlons: number[] | null,
     additional: string | null,
   ): Promise<[boolean, string, Order]> {
     try {
@@ -53,8 +54,8 @@ export class OrderService {
         return [false, 'competition_not_found', null];
       }
 
-      if (!races && !relays && !cryatlon_id) {
-        return [false, 'no_orders', null];
+      if (!races && !relays && !cryatlons) {
+        return [false, 'no_distances', null];
       }
 
       const availableRaces = races
@@ -63,9 +64,9 @@ export class OrderService {
       const availableRelays = relays
         ? await this.relayRepository.findByIds(relays)
         : [];
-      const availableCryatlon = cryatlon_id
-        ? await this.cryatlonRepository.findOne(cryatlon_id)
-        : null;
+      const availableCryatlons = cryatlons
+        ? await this.cryatlonRepository.findByIds(cryatlons)
+        : [];
 
       const order = new Order({
         competition,
@@ -81,9 +82,10 @@ export class OrderService {
         phone,
         races: availableRaces,
         relays: availableRelays,
-        cryatlon: availableCryatlon,
+        cryatlons: availableCryatlons,
         additional,
-        processed: false,
+        status: OrderStatuses.New,
+        created_at: new Date(),
       });
 
       await order.save();
@@ -95,5 +97,19 @@ export class OrderService {
 
       return [false, 'exception_error', null];
     }
+  }
+
+  async findOne(id: number, relations = false): Promise<[boolean, Order]> {
+    const order = await this.orderRepository.findOne(id, {
+      ...(relations && {
+        relations: ['competition', 'races', 'relays', 'cryatlons'],
+      }),
+    });
+
+    if (!order) {
+      return [false, null];
+    }
+
+    return [true, order];
   }
 }
