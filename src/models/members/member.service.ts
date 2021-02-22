@@ -21,9 +21,11 @@ export class MemberService {
     middle_name: string | null,
     birthdate: Date,
     gender: Gender,
+    para_swimmer: boolean,
     club_id: number,
-    email: string,
-    phone: string,
+    email: string | null,
+    phone: string | null,
+    location: string | null,
   ): Promise<[boolean, Member]> {
     try {
       const [isClubExists, club] = await this.clubService.findOne(club_id);
@@ -35,8 +37,10 @@ export class MemberService {
           middle_name,
           birthdate,
           gender,
+          para_swimmer,
           email,
           phone,
+          location,
           club,
         });
 

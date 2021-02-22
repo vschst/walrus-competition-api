@@ -54,9 +54,11 @@ export class MembersController {
       middle_name,
       birthdate,
       gender,
+      para_swimmer,
       club_id,
       email,
       phone,
+      location,
     }: CreateMemberRequestDTO,
   ): Promise<GetMemberResponseDTO> {
     const [isMemberCreated, member] = await this.memberService.createMember(
@@ -65,9 +67,11 @@ export class MembersController {
       middle_name,
       birthdate,
       gender,
+      para_swimmer,
       club_id,
       email,
       phone,
+      location,
     );
 
     if (!isMemberCreated) {
