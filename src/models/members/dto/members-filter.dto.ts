@@ -5,7 +5,7 @@ import { Gender } from '@common/enums/gender.enum';
 
 export class GetMembersFilterDTO extends BaseFilterDTO {
   @IsOptional()
-  @IsIn(['last_name', 'club_name', 'gender', 'birthdate'])
+  @IsIn(['last_name', 'club_name', 'gender', 'age'])
   sort = 'last_name';
 
   @IsOptional()

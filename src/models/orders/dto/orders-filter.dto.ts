@@ -15,6 +15,9 @@ export class GetOrdersFilterDTO extends BaseFilterDTO {
     'location',
     'status',
     'created_at',
+    'races_count',
+    'relays_count',
+    'cryatlons_count',
   ])
   sort = 'created_at';
 
