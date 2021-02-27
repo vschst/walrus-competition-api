@@ -46,7 +46,7 @@ export class GetOrderListItemDTO {
   @IsDate()
   birthdate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   gender: Gender;
 
@@ -83,7 +83,7 @@ export class GetOrderListItemDTO {
   @IsInt()
   cryatlons_count: number;
 
-  @ApiProperty()
+  @ApiProperty({ enum: OrderStatuses })
   @IsEnum(OrderStatuses)
   status: OrderStatuses;
 

@@ -42,7 +42,7 @@ export class GetMemberListItemDTO {
   @IsDate()
   birthdate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @Expose()
   @IsEnum(Gender)
   gender: Gender;

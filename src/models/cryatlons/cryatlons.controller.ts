@@ -5,12 +5,12 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { AuthSkip } from '@common/decorators/requests/auth-skip.decorador';
 import { IdParamDTO } from '@common/dto/id-param.dto';
-import { CryatlonsService } from './cryatlons.service';
+import { PublicCryatlonsService } from './public-cryatlons.service';
 import { PublicCryatlonsSerializerService } from './serializers/public-cryatlons.serializer';
 import { GetPublicCryatlonListResponseDTO } from './dto/public-cryatlons.dto';
 
@@ -20,16 +20,23 @@ import { GetPublicCryatlonListResponseDTO } from './dto/public-cryatlons.dto';
 @UseGuards(JwtAuthGuard)
 export class CryatlonsController {
   constructor(
-    private readonly cryatlonsService: CryatlonsService,
+    private readonly publicCryatlonsService: PublicCryatlonsService,
     private readonly publicCryatlonsSerializerService: PublicCryatlonsSerializerService,
   ) {}
 
+  @ApiOperation({ summary: 'Get public cryatlons and orders for them' })
+  @ApiParam({ name: 'id', description: 'Competition ID' })
+  @ApiResponse({
+    status: 200,
+    type: GetPublicCryatlonListResponseDTO,
+    description: 'Successful get public cryatlons and orders for them response',
+  })
   @Get('public/:id')
   @AuthSkip()
   async getPublicCryatlons(
     @Param() { id }: IdParamDTO,
   ): Promise<GetPublicCryatlonListResponseDTO> {
-    const cryatlons = await this.cryatlonsService.getAllPublic(id);
+    const cryatlons = await this.publicCryatlonsService.findAll(id);
 
     return {
       data: this.publicCryatlonsSerializerService.markSerializableCollection(

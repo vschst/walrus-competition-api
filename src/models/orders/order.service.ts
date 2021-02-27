@@ -9,6 +9,7 @@ import { Gender } from '@common/enums/gender.enum';
 import { CompetitionService } from '@models/competitions/competition.service';
 import { OrderMailNotifyService } from './order-mail-notify.service';
 import { OrderStatuses } from './enums/order-statuses.enum';
+import { UpdateOrderDTO } from './dto/update-order.dto';
 
 @Injectable()
 export class OrderService {
@@ -92,6 +93,29 @@ export class OrderService {
 
       await order.save();
       await this.orderMailNotify.sendNewOrderNotify(order);
+
+      return [true, '', order];
+    } catch (error) {
+      this.logger.error(error);
+
+      return [false, 'exception_error', null];
+    }
+  }
+
+  async updateOrder(
+    id: number,
+    updateOrder: UpdateOrderDTO,
+  ): Promise<[boolean, string, Order]> {
+    try {
+      const [isOrderExist, order] = await this.findOne(id, true);
+
+      if (!isOrderExist) {
+        return [false, 'order_not_found', null];
+      }
+
+      Object.assign(order, updateOrder);
+
+      await order.save();
 
       return [true, '', order];
     } catch (error) {

@@ -1,8 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ILike, Not } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 import { OrderView } from './entities/order-view.entity';
-import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
 
 @Injectable()
 export class OrdersService {
@@ -40,18 +39,6 @@ export class OrdersService {
         ...(para_swimmer !== null && { para_swimmer }),
         ...(need_skis !== null && { need_skis }),
         ...(status && { status }),
-      },
-    });
-  }
-
-  async findAllPublic(competition_id: number): Promise<OrderView[]> {
-    return await this.ordersRepository.find({
-      order: {
-        created_at: 'DESC',
-      },
-      where: {
-        competition_id,
-        status: Not(OrderStatuses.Rejected),
       },
     });
   }

@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiParam,
   ApiOperation,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { ClubService } from './club.service';
 import { ClubsService } from './clubs.service';
@@ -45,6 +46,11 @@ export class ClubsController {
 
   @Post()
   @ApiOperation({ summary: 'Add a new club' })
+  @ApiResponse({
+    status: 200,
+    type: GetClubResponseDTO,
+    description: 'Successful create club response',
+  })
   @HttpCode(200)
   async createClub(
     @Body() { name, location }: CreateClubRequestDTO,
@@ -65,6 +71,11 @@ export class ClubsController {
 
   @Get()
   @ApiOperation({ summary: 'Get clubs list' })
+  @ApiResponse({
+    status: 200,
+    type: GetClubsListResponseDTO,
+    description: 'Successful get club list response',
+  })
   async getClubs(
     @Query(ValidationPipe)
     { limit, offset, sort, direction, search }: GetClubsFilterDTO,
@@ -88,6 +99,11 @@ export class ClubsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get club by ID' })
   @ApiParam({ name: 'id', description: 'Club ID' })
+  @ApiResponse({
+    status: 200,
+    type: GetClubResponseDTO,
+    description: 'Successful get club data response',
+  })
   async getClub(@Param() { id }: IdParamDTO): Promise<GetClubResponseDTO> {
     const [isClubExists, club] = await this.clubService.findOne(id, true);
 

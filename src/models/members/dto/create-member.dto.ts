@@ -34,7 +34,7 @@ export class CreateMemberRequestDTO {
   @IsDate()
   birthdate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   @IsNotEmpty()
   gender: Gender;

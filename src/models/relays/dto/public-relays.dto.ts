@@ -7,7 +7,7 @@ import { Serializable } from '@common/serializers/base.serializer';
 
 export class GetPublicRelayListItemDTO extends GetRelayDataDTO {
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ type: [GetPublicOrderListItemDTO] })
   @IsArray()
   @Type(() => GetPublicOrderListItemDTO)
   orders: GetPublicOrderListItemDTO[];

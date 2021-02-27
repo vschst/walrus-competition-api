@@ -40,7 +40,7 @@ export class GetMemberDataDTO {
   @IsBoolean()
   para_swimmer: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   gender: Gender;
 

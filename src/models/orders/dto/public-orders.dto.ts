@@ -46,7 +46,7 @@ export class GetPublicOrderListItemDTO {
   @IsNotEmpty()
   location: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: OrderStatuses })
   @Expose()
   @IsEnum(OrderStatuses)
   status: OrderStatuses;

@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDate, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsDate,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { GetRaceDataDTO } from '@models/races/dto/race.dto';
 import { GetRelayDataDTO } from '@models/relays/dto/relay.dto';
@@ -17,6 +24,11 @@ export class GetCompetitionDataDTO {
   name: string;
 
   @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty()
+  description: string;
+
+  @ApiProperty()
   @IsDate()
   start_date: Date;
 
@@ -24,17 +36,17 @@ export class GetCompetitionDataDTO {
   @IsDate()
   end_date: Date;
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetRaceDataDTO] })
   @IsArray()
   @Type(() => GetRaceDataDTO)
   races: GetRaceDataDTO[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetRelayDataDTO] })
   @IsArray()
   @Type(() => GetRelayDataDTO)
   relays: GetRelayDataDTO[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetCryatlonDataDTO] })
   @IsArray()
   @Type(() => GetCryatlonDataDTO)
   cryatlons: GetCryatlonDataDTO[];

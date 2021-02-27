@@ -19,7 +19,7 @@ export class GetClubDataDTO {
   @IsNotEmpty()
   location: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetMemberDataDTO] })
   @IsArray()
   @Type(() => GetMemberDataDTO)
   members: GetMemberDataDTO[];

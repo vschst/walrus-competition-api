@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { MemberService } from './member.service';
@@ -45,6 +46,11 @@ export class MembersController {
 
   @Post()
   @ApiOperation({ summary: 'Add a new member' })
+  @ApiResponse({
+    status: 200,
+    type: GetMemberResponseDTO,
+    description: 'Successful create member response',
+  })
   @HttpCode(200)
   async createMember(
     @Body()
@@ -85,6 +91,11 @@ export class MembersController {
 
   @Get()
   @ApiOperation({ summary: 'Get members list' })
+  @ApiResponse({
+    status: 200,
+    type: GetMembersListResponseDTO,
+    description: 'Successful get member list response',
+  })
   async getMembers(
     @Query(ValidationPipe)
     {
@@ -122,6 +133,11 @@ export class MembersController {
   @Get(':id')
   @ApiOperation({ summary: 'Get member by ID' })
   @ApiParam({ name: 'id', description: 'Member ID' })
+  @ApiResponse({
+    status: 200,
+    type: GetMemberResponseDTO,
+    description: 'Successful get member data response',
+  })
   async getMember(@Param() { id }: IdParamDTO): Promise<GetMemberResponseDTO> {
     const [isMemberExists, member] = await this.memberService.findOne(id);
 

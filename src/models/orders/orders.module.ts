@@ -5,6 +5,7 @@ import { Competition } from '@models/competitions/entities/competition.entity';
 import { Order } from './entities/order.entity';
 import { OrderView } from './entities/order-view.entity';
 import { OrderService } from './order.service';
+import { PublicOrdersService } from './public-orders.service';
 import { OrdersService } from './orders.service';
 import { OrderSerializerService } from './serializers/order.serializer';
 import { OrdersSerializerService } from './serializers/orders.serializer';
@@ -35,6 +36,7 @@ import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
     OrderMailNotifyService,
     OrderService,
     OrdersService,
+    PublicOrdersService,
     OrderSerializerService,
     OrdersSerializerService,
     PublicOrdersSerializerService

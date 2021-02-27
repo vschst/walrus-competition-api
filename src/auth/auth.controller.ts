@@ -1,7 +1,7 @@
 import { Controller, Logger, Post, Body, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsRequestDTO } from './dto/auth-credentials.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthLoginResponseDTO } from '@auth/dto/auth-login.dto';
 
 @Controller('auth')
@@ -14,6 +14,11 @@ export class AuthController {
   @Post('/login')
   @HttpCode(200)
   @ApiOperation({ summary: 'Login as a user' })
+  @ApiResponse({
+    status: 200,
+    type: AuthLoginResponseDTO,
+    description: 'Successful login response',
+  })
   async login(
     @Body() authCredentialsRequestDTO: AuthCredentialsRequestDTO,
   ): Promise<AuthLoginResponseDTO> {

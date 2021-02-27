@@ -35,7 +35,7 @@ export class GetCryatlonDataDTO {
   @IsInt()
   barefoot_distance: number;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @Expose()
   @IsEnum(Gender)
   gender: Gender;

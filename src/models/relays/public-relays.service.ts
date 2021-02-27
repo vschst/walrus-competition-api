@@ -5,15 +5,15 @@ import { Relay } from './entities/relay.entity';
 import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
 
 @Injectable()
-export class RelaysService {
-  private readonly logger = new Logger(RelaysService.name);
+export class PublicRelaysService {
+  private readonly logger = new Logger(PublicRelaysService.name);
 
   constructor(
     @InjectRepository(Relay)
     private relaysRepository: Repository<Relay>,
   ) {}
 
-  async getAllPublic(id: number): Promise<Relay[]> {
+  async findAll(id: number): Promise<Relay[]> {
     return await this.relaysRepository
       .createQueryBuilder('relay')
       .leftJoinAndSelect('relay.orders', 'order')

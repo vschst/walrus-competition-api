@@ -51,7 +51,7 @@ export class GetOrderDataDTO {
   @IsDate()
   birthdate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   gender: Gender;
 
@@ -97,17 +97,17 @@ export class GetOrderDataDTO {
   @IsDate()
   created_at: Date;
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetRaceDataDTO] })
   @IsArray()
   @Type(() => GetRaceDataDTO)
   races: GetRaceDataDTO[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetRelayDataDTO] })
   @IsArray()
   @Type(() => GetRelayDataDTO)
   relays: GetRelayDataDTO[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [GetCryatlonDataDTO] })
   @IsArray()
   @Type(() => GetCryatlonDataDTO)
   cryatlons: GetCryatlonDataDTO[];

@@ -5,15 +5,15 @@ import { Cryatlon } from './entities/cryatlon.entity';
 import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
 
 @Injectable()
-export class CryatlonsService {
-  private readonly logger = new Logger(CryatlonsService.name);
+export class PublicCryatlonsService {
+  private readonly logger = new Logger(PublicCryatlonsService.name);
 
   constructor(
     @InjectRepository(Cryatlon)
     private cryatlonsRepository: Repository<Cryatlon>,
   ) {}
 
-  async getAllPublic(id: number): Promise<Cryatlon[]> {
+  async findAll(id: number): Promise<Cryatlon[]> {
     return await this.cryatlonsRepository
       .createQueryBuilder('cryatlon')
       .leftJoinAndSelect('cryatlon.orders', 'order')

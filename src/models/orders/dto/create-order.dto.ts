@@ -53,7 +53,7 @@ export class CreateOrderDTO {
   @IsDate()
   birthdate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   @IsNotEmpty()
   gender: Gender;
@@ -74,17 +74,17 @@ export class CreateOrderDTO {
   @IsBoolean()
   need_skis: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ type: [Number] })
   @IsOptional()
   @IsInt({ each: true })
   races: number[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [Number] })
   @IsOptional()
   @IsInt({ each: true })
   relays: number[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [Number] })
   @IsOptional()
   @IsInt({ each: true })
   cryatlons: number[];

@@ -7,7 +7,7 @@ import { Serializable } from '@common/serializers/base.serializer';
 
 export class GetPublicCryatlonListItemDTO extends GetCryatlonDataDTO {
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ type: [GetPublicOrderListItemDTO] })
   @IsArray()
   @Type(() => GetPublicOrderListItemDTO)
   orders: GetPublicOrderListItemDTO[];
