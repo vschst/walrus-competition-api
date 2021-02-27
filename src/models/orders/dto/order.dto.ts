@@ -75,6 +75,10 @@ export class GetOrderDataDTO {
   email: string;
 
   @ApiProperty()
+  @IsBoolean()
+  need_skis: boolean;
+
+  @ApiProperty()
   @IsPhoneNumber('RU')
   @IsOptional()
   @IsString()

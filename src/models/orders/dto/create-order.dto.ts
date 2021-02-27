@@ -71,6 +71,10 @@ export class CreateOrderDTO {
   phone: string;
 
   @ApiProperty()
+  @IsBoolean()
+  need_skis: boolean;
+
+  @ApiProperty()
   @IsOptional()
   @IsInt({ each: true })
   races: number[];

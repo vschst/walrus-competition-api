@@ -35,6 +35,7 @@ export class OrderMailNotifyService {
       para_swimmer,
       email,
       phone,
+      need_skis,
       races,
       relays,
       cryatlons,
@@ -59,6 +60,7 @@ export class OrderMailNotifyService {
           gender: genderText(gender),
           email,
           phone,
+          need_skis,
         },
         races: races.map((race: Race) => ({
           name: race.name,

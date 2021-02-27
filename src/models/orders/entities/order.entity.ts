@@ -93,6 +93,10 @@ export class Order extends BaseEntity {
   @Column({ nullable: true })
   phone: string;
 
+  @IsBoolean()
+  @Column({ type: 'boolean' })
+  need_skis: boolean;
+
   @IsString()
   @IsOptional()
   @Column({ nullable: true })

@@ -21,6 +21,7 @@ export class OrdersService {
     competition_id = null,
     gender = null,
     para_swimmer = null,
+    need_skis = null,
     status = null,
     search = null,
   ): Promise<[OrderView[], number]> {
@@ -37,6 +38,7 @@ export class OrdersService {
           last_name: ILike(`%${search}%`),
         }),
         ...(para_swimmer !== null && { para_swimmer }),
+        ...(need_skis !== null && { need_skis }),
         ...(status && { status }),
       },
     });

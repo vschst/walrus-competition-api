@@ -29,6 +29,7 @@ import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
       .addSelect('order.para_swimmer', 'para_swimmer')
       .addSelect('order.club_name', 'club_name')
       .addSelect('order.location', 'location')
+      .addSelect('order.need_skis', 'need_skis')
       .addSelect('order.status', 'status')
       .addSelect('order.created_at', 'created_at')
       .addSelect('count(distinct order_race.race_id)', 'races_count')
@@ -65,6 +66,7 @@ import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
       .addGroupBy('order.para_swimmer')
       .addGroupBy('order.club_name')
       .addGroupBy('order.location')
+      .addGroupBy('order.need_skis')
       .addGroupBy('order.status')
       .addGroupBy('order.created_at'),
 })
@@ -118,6 +120,10 @@ export class OrderView {
   @IsNotEmpty()
   @ViewColumn()
   location: string;
+
+  @IsBoolean()
+  @ViewColumn()
+  need_skis: boolean;
 
   @IsInt()
   @ViewColumn()

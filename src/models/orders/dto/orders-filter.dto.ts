@@ -35,6 +35,10 @@ export class GetOrdersFilterDTO extends BaseFilterDTO {
   para_swimmer: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  need_skis: boolean;
+
+  @IsOptional()
   @IsEnum(OrderStatuses)
   status: OrderStatuses;
 }

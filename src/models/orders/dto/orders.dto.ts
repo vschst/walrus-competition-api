@@ -65,6 +65,10 @@ export class GetOrderListItemDTO {
   location: string;
 
   @ApiProperty()
+  @IsBoolean()
+  need_skis: boolean;
+
+  @ApiProperty()
   @Transform(({ value: count }) => parseInt(count))
   @IsInt()
   races_count: number;
