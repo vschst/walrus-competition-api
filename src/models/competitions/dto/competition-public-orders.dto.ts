@@ -1,53 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsDate,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsArray } from 'class-validator';
 import { Expose, Type } from 'class-transformer';
-import { GetPublicOrderListItemDTO } from '@models/orders/dto/public-orders.dto';
 import { GetPublicRaceListItemDTO } from '@models/races/dto/public-races.dto';
 import { GetPublicRelayListItemDTO } from '@models/relays/dto/public-relays.dto';
 import { GetPublicCryatlonListItemDTO } from '@models/cryatlons/dto/public-cryatlons.dto';
 import { Serializable } from '@common/serializers/base.serializer';
+import { GetCompetitionDataDTO } from './competition.dto';
 
-export class GetCompetitionPublicOrdersDataDTO {
-  @ApiProperty()
-  @Expose()
-  @IsInt()
-  id: number;
-
-  @ApiProperty()
-  @Expose()
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @ApiProperty()
-  @Expose()
-  @IsOptional()
-  @IsNotEmpty()
-  description: string;
-
-  @ApiProperty()
-  @Expose()
-  @IsDate()
-  start_date: Date;
-
-  @ApiProperty()
-  @Expose()
-  @IsDate()
-  end_date: Date;
-
-  @ApiProperty({ type: [GetPublicOrderListItemDTO] })
-  @Expose()
-  @IsArray()
-  @Type(() => GetPublicOrderListItemDTO)
-  orders: GetPublicOrderListItemDTO[];
-
+export class GetCompetitionPublicOrdersDataDTO extends GetCompetitionDataDTO {
   @ApiProperty({ type: [GetPublicRaceListItemDTO] })
   @Expose()
   @IsArray()

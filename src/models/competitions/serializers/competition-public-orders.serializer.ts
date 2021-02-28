@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { BaseSerializerService } from '@common/serializers/base.serializer';
-import { CompetitionPublicOrders } from '@models/competitions/entities/competition-public-orders.entity';
+import { Competition } from '@models/competitions/entities/competition.entity';
 import { GetCompetitionPublicOrdersDataDTO } from '@models/competitions/dto/competition-public-orders.dto';
 import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class CompetitionPublicOrdersSerializer extends BaseSerializerService<
-  CompetitionPublicOrders,
+  Competition,
   GetCompetitionPublicOrdersDataDTO
 > {
   public async serialize(
-    competitionPublicOrders: CompetitionPublicOrders,
+    competitionPublicOrders: Competition,
   ): Promise<GetCompetitionPublicOrdersDataDTO> {
     return plainToClass(
       GetCompetitionPublicOrdersDataDTO,

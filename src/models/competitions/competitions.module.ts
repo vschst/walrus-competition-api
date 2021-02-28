@@ -6,7 +6,6 @@ import { CompetitionService } from './competition.service';
 import { PublicRacesService } from '@models/races/public-races.service';
 import { PublicRelaysService } from '@models/relays/public-relays.service';
 import { PublicCryatlonsService } from '@models/cryatlons/public-cryatlons.service';
-import { PublicOrdersService } from '@models/orders/public-orders.service';
 import { Competition } from './entities/competition.entity';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
@@ -25,7 +24,6 @@ import { CompetitionsController } from './competitions.controller';
     PublicRacesService,
     PublicRelaysService,
     PublicCryatlonsService,
-    PublicOrdersService,
   ],
   controllers: [CompetitionsController],
 })

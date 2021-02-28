@@ -14,12 +14,11 @@ import { GetCompetitionResponseDTO } from './dto/competition.dto';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { AuthSkip } from '@common/decorators/requests/auth-skip.decorador';
-import { PublicOrdersService } from '@models/orders/public-orders.service';
 import { PublicRacesService } from '@models/races/public-races.service';
 import { PublicRelaysService } from '@models/relays/public-relays.service';
 import { PublicCryatlonsService } from '@models/cryatlons/public-cryatlons.service';
 import { GetCompetitionPublicOrdersResponseDTO } from './dto/competition-public-orders.dto';
-import { CompetitionPublicOrders } from './entities/competition-public-orders.entity';
+import { Competition } from './entities/competition.entity';
 import { CompetitionPublicOrdersSerializer } from './serializers/competition-public-orders.serializer';
 
 @ApiTags('competitions')
@@ -30,7 +29,6 @@ export class CompetitionsController {
   constructor(
     private readonly competitionService: CompetitionService,
     private readonly competitionSerializerService: CompetitionSerializer,
-    private readonly publicOrdersService: PublicOrdersService,
     private readonly publicRacesService: PublicRacesService,
     private readonly publicRelaysService: PublicRelaysService,
     private readonly publicCryatlonsService: PublicCryatlonsService,
@@ -87,15 +85,13 @@ export class CompetitionsController {
     }
 
     const publicAssets = await Promise.all([
-      this.publicOrdersService.findAll(id),
       this.publicRacesService.findAll(id),
       this.publicRelaysService.findAll(id),
       this.publicCryatlonsService.findAll(id),
     ]);
-    const [orders, races, relays, cryatlons] = publicAssets;
-    const competitionPublicOrders = new CompetitionPublicOrders({
+    const [races, relays, cryatlons] = publicAssets;
+    const competitionPublicOrders = new Competition({
       ...competition,
-      orders,
       races,
       relays,
       cryatlons,
