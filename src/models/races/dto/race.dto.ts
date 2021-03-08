@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsDate,
   IsEnum,
   IsInt,
@@ -49,6 +50,11 @@ export class GetRaceDataDTO {
   @IsOptional()
   @IsInt()
   max_age: number;
+
+  @ApiProperty()
+  @Expose()
+  @IsBoolean()
+  para_swimmers: boolean;
 
   @ApiProperty()
   @Expose()
