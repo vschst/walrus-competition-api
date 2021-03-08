@@ -5,7 +5,12 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { GetAuthUser } from '@common/decorators/requests/get-auth-user.decorator';
 import { IJwtAuthUser } from '@auth/interfaces/jwt-auth-user.interface';
@@ -25,6 +30,11 @@ export class UsersController {
 
   @Get('me')
   @ApiOperation({ summary: 'Get authenticated user' })
+  @ApiResponse({
+    status: 200,
+    type: GetUserResponseDTO,
+    description: 'Successful get authenticated user data',
+  })
   getMyProfile(@GetAuthUser() authUser: IJwtAuthUser): GetUserResponseDTO {
     return {
       data: this.authUserSeializer.markSerializableValue(authUser),

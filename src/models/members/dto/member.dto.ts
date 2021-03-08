@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+} from 'class-validator';
 import { Serializable } from '@common/serializers/base.serializer';
 import { Gender } from '@common/enums/gender.enum';
 
@@ -28,6 +37,10 @@ export class GetMemberDataDTO {
   birthdate: Date;
 
   @ApiProperty()
+  @IsBoolean()
+  para_swimmer: boolean;
+
+  @ApiProperty({ enum: Gender })
   @IsEnum(Gender)
   gender: Gender;
 
@@ -50,6 +63,11 @@ export class GetMemberDataDTO {
   @IsOptional()
   @IsString()
   phone: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  location: string;
 }
 
 export class GetMemberResponseDTO {

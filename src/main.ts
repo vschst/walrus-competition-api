@@ -20,7 +20,7 @@ async function bootstrap() {
   setupSwagger(app);
 
   const appConfig: AppConfigService = app.get('AppConfigService');
-  const port = appConfig.port;
+  const { port } = appConfig;
 
   await app.listen(port);
 

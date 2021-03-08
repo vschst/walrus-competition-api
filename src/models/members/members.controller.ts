@@ -17,8 +17,10 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { MemberService } from './member.service';
 import { MembersService } from './members.service';
 import { GetMembersFilterDTO } from './dto/members-filter.dto';
 import { GetMembersListResponseDTO } from '@models/members/dto/members.dto';
@@ -27,7 +29,7 @@ import { MembersSerializerService } from './serializers/members.serializer';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
 import { CreateMemberRequestDTO } from '@models/members/dto/create-member.dto';
 import { GetMemberResponseDTO } from './dto/member.dto';
-import { IdParamDto } from '@common/dto/id-param.dto';
+import { IdParamDTO } from '@common/dto/id-param.dto';
 
 @ApiTags('members')
 @ApiBearerAuth()
@@ -36,6 +38,7 @@ import { IdParamDto } from '@common/dto/id-param.dto';
 @UseGuards(JwtAuthGuard)
 export class MembersController {
   constructor(
+    private readonly memberService: MemberService,
     private readonly membersService: MembersService,
     private readonly memberSerializerService: MemberSerializerService,
     private readonly membersSerializerService: MembersSerializerService,
@@ -43,6 +46,11 @@ export class MembersController {
 
   @Post()
   @ApiOperation({ summary: 'Add a new member' })
+  @ApiResponse({
+    status: 200,
+    type: GetMemberResponseDTO,
+    description: 'Successful create member response',
+  })
   @HttpCode(200)
   async createMember(
     @Body()
@@ -52,20 +60,24 @@ export class MembersController {
       middle_name,
       birthdate,
       gender,
+      para_swimmer,
       club_id,
       email,
       phone,
+      location,
     }: CreateMemberRequestDTO,
   ): Promise<GetMemberResponseDTO> {
-    const [isMemberCreated, member] = await this.membersService.createMember(
+    const [isMemberCreated, member] = await this.memberService.createMember(
       first_name,
       last_name,
       middle_name,
       birthdate,
       gender,
+      para_swimmer,
       club_id,
       email,
       phone,
+      location,
     );
 
     if (!isMemberCreated) {
@@ -79,6 +91,11 @@ export class MembersController {
 
   @Get()
   @ApiOperation({ summary: 'Get members list' })
+  @ApiResponse({
+    status: 200,
+    type: GetMembersListResponseDTO,
+    description: 'Successful get member list response',
+  })
   async getMembers(
     @Query(ValidationPipe)
     {
@@ -88,6 +105,8 @@ export class MembersController {
       direction,
       club_id,
       gender,
+      min_age,
+      max_age,
       search,
     }: GetMembersFilterDTO,
   ): Promise<GetMembersListResponseDTO> {
@@ -98,6 +117,8 @@ export class MembersController {
       direction,
       club_id,
       gender,
+      min_age,
+      max_age,
       search,
     );
 
@@ -112,8 +133,13 @@ export class MembersController {
   @Get(':id')
   @ApiOperation({ summary: 'Get member by ID' })
   @ApiParam({ name: 'id', description: 'Member ID' })
-  async getMember(@Param() { id }: IdParamDto): Promise<GetMemberResponseDTO> {
-    const [isMemberExists, member] = await this.membersService.findOne(id);
+  @ApiResponse({
+    status: 200,
+    type: GetMemberResponseDTO,
+    description: 'Successful get member data response',
+  })
+  async getMember(@Param() { id }: IdParamDTO): Promise<GetMemberResponseDTO> {
+    const [isMemberExists, member] = await this.memberService.findOne(id);
 
     if (!isMemberExists) {
       throw new NotFoundException('Member not found');

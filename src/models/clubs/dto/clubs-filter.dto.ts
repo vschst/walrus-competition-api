@@ -1,7 +1,7 @@
 import { IsOptional, IsIn } from 'class-validator';
-import { BaseFilterDto } from '@common/dto/base-filter.dto';
+import { BaseFilterDTO } from '@common/dto/base-filter.dto';
 
-export class GetClubsFilterDTO extends BaseFilterDto {
+export class GetClubsFilterDTO extends BaseFilterDTO {
   @IsOptional()
   @IsIn(['name', 'location', 'members_count'])
   sort = 'members_count';

@@ -17,11 +17,13 @@ import {
   ApiBearerAuth,
   ApiParam,
   ApiOperation,
+  ApiResponse,
 } from '@nestjs/swagger';
+import { ClubService } from './club.service';
 import { ClubsService } from './clubs.service';
 import { ClubSerializerService } from './serializers/club.serializer';
 import { ClubsSerializerService } from './serializers/clubs.serializer';
-import { IdParamDto } from '@common/dto/id-param.dto';
+import { IdParamDTO } from '@common/dto/id-param.dto';
 import { GetClubResponseDTO } from './dto/club.dto';
 import { GetClubsListResponseDTO } from './dto/clubs.dto';
 import { SerializerInterceptor } from '@common/interceptors/serializer.interceptor';
@@ -36,6 +38,7 @@ import { CreateClubRequestDTO } from './dto/create-club.dto';
 @UseGuards(JwtAuthGuard)
 export class ClubsController {
   constructor(
+    private readonly clubService: ClubService,
     private readonly clubsService: ClubsService,
     private readonly clubSerializerService: ClubSerializerService,
     private readonly clubsSerializerService: ClubsSerializerService,
@@ -43,11 +46,16 @@ export class ClubsController {
 
   @Post()
   @ApiOperation({ summary: 'Add a new club' })
+  @ApiResponse({
+    status: 200,
+    type: GetClubResponseDTO,
+    description: 'Successful create club response',
+  })
   @HttpCode(200)
   async createClub(
     @Body() { name, location }: CreateClubRequestDTO,
   ): Promise<GetClubResponseDTO> {
-    const [isClubCreated, club] = await this.clubsService.createClub(
+    const [isClubCreated, club] = await this.clubService.createClub(
       name,
       location,
     );
@@ -63,6 +71,11 @@ export class ClubsController {
 
   @Get()
   @ApiOperation({ summary: 'Get clubs list' })
+  @ApiResponse({
+    status: 200,
+    type: GetClubsListResponseDTO,
+    description: 'Successful get club list response',
+  })
   async getClubs(
     @Query(ValidationPipe)
     { limit, offset, sort, direction, search }: GetClubsFilterDTO,
@@ -86,8 +99,13 @@ export class ClubsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get club by ID' })
   @ApiParam({ name: 'id', description: 'Club ID' })
-  async getClub(@Param() { id }: IdParamDto): Promise<GetClubResponseDTO> {
-    const [isClubExists, club] = await this.clubsService.findOne(id);
+  @ApiResponse({
+    status: 200,
+    type: GetClubResponseDTO,
+    description: 'Successful get club data response',
+  })
+  async getClub(@Param() { id }: IdParamDTO): Promise<GetClubResponseDTO> {
+    const [isClubExists, club] = await this.clubService.findOne(id, true);
 
     if (!isClubExists) {
       throw new NotFoundException('Club not found');

@@ -1,0 +1,174 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая заявка на участие</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title is-1 has-text-weight-bold mb-3">
+            {{ competition_name }}
+        </h1>
+        <h2 class="title is-2 pb-4">
+            Новая заявка на участие
+        </h2>
+        <h3 class="title is-3">
+            Информация об участнике
+        </h3>
+        {{#if participant.para_swimmer }}
+        <span class="tag is-info is-medium">Парапловец</span>
+        {{/if}}
+        {{#if participant.need_skis }}
+        <span class="tag is-warning is-medium">Нужны лыжи</span>
+        {{/if}}
+        <table class="table is-bordered is-striped subtitle mt-2">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Фамилия:</td>
+                    <td>{{ participant.last_name }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Имя:</td>
+                    <td>{{ participant.first_name }}</td>
+                </tr>
+                {{#if participant.middle_name }}
+                <tr>
+                    <td class="has-text-weight-bold">Отчество:</td>
+                    <td>{{ participant.middle_name }}</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td class="has-text-weight-bold">Клуб:</td>
+                    <td>{{ participant.club_name }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Город:</td>
+                    <td>{{ participant.location }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">День рождения:</td>
+                    <td>{{ participant.birthdate }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Возраст:</td>
+                    <td>{{ participant.age }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Пол:</td>
+                    <td>{{ participant.gender }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">E-mail:</td>
+                    <td>{{ participant.email }}</td>
+                </tr>
+                {{#if participant.phone }}
+                <tr>
+                    <td class="has-text-weight-bold">Телефон:</td>
+                    <td>{{ participant.phone }}</td>
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+        <h3 class="title is-3 mt-6">
+            Выбранные дистанции
+        </h3>
+        {{#each races}}
+        <h4 class="title is-4 mt-2">
+            {{ name }}
+        </h4>
+        {{#if para_swimmers }}
+        <span class="tag is-info">Могут участвовать парапловцы</span>
+        {{/if}}
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+            <tr>
+                <td class="has-text-weight-bold">Длина (метров):</td>
+                <td>{{ distance }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Стиль:</td>
+                <td>{{ swimming_style }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Пол:</td>
+                <td>{{ gender }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Возрастная группа:</td>
+                <td>{{ age_group }}</td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-bold">Дата:</td>
+                <td>{{ date }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{/each}}
+        {{#each relays}}
+        <h4 class="title is-4 mt-2">
+            {{ name }}
+        </h4>
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Длина (метров):</td>
+                    <td>{{ distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Участников:</td>
+                    <td>{{ count }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Дата:</td>
+                    <td>{{ date }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{/each}}
+        {{#each cryatlons}}
+        <h4 class="title is-4 mt-2">
+            {{ name }}
+        </h4>
+        <table class="table is-bordered is-striped subtitle mt-1">
+            <tbody>
+                <tr>
+                    <td class="has-text-weight-bold">Бег (метров):</td>
+                    <td>{{ run_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Лыжи (метров):</td>
+                    <td>{{ ski_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Плавание (метров):</td>
+                    <td>{{ water_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Босиком (метров):</td>
+                    <td>{{ barefoot_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Пол:</td>
+                    <td>{{ gender }}</td>
+                </tr>
+                <tr>
+                    <td class="has-text-weight-bold">Дата:</td>
+                    <td>{{ date }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{/each}}
+        {{#if additional}}
+        <h3 class="title is-3 mt-6">
+            Дополнительная информация
+        </h3>
+        <div class="content">
+            <blockquote>{{ additional }}</blockquote>
+        </div>
+        {{/if}}
+    </div>
+</section>
+</body>
+</html>

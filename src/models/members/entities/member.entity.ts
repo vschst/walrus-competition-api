@@ -15,6 +15,7 @@ import {
   IsEnum,
   IsEmail,
   IsPhoneNumber,
+  IsBoolean,
 } from 'class-validator';
 import { Gender } from '@common/enums/gender.enum';
 import { Club } from '@models/clubs/entities/club.entity';
@@ -49,6 +50,10 @@ export class Member extends BaseEntity {
   @Column({ type: 'enum', enum: Gender })
   gender: Gender;
 
+  @IsBoolean()
+  @Column({ type: 'boolean' })
+  para_swimmer: boolean;
+
   @IsEmail()
   @IsString()
   @IsOptional()
@@ -60,6 +65,11 @@ export class Member extends BaseEntity {
   @IsOptional()
   @Column({ nullable: true })
   phone: string;
+
+  @IsString()
+  @IsOptional()
+  @Column()
+  location: string;
 
   @ManyToOne(() => Club, (club) => club.members)
   @JoinColumn({ name: 'club_id' })

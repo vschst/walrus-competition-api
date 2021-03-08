@@ -8,7 +8,13 @@ import { User } from '@models/users/entities/user.entity';
 import { Club } from '@models/clubs/entities/club.entity';
 import { ClubView } from '@models/clubs/entities/club-view.entity';
 import { Member } from '@models/members/entities/member.entity';
-import { MemberView} from '@models/members/entities/member-view.entity';
+import { MemberView } from '@models/members/entities/member-view.entity';
+import { Competition } from '@models/competitions/entities/competition.entity';
+import { Race } from '@models/races/entities/race.entity';
+import { Relay } from '@models/relays/entities/relay.entity';
+import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Order } from '@models/orders/entities/order.entity';
+import { OrderView } from '@models/orders/entities/order-view.entity';
 
 @Module({
   imports: [
@@ -31,7 +37,19 @@ import { MemberView} from '@models/members/entities/member-view.entity';
           username,
           password,
           database,
-          entities: [User, Club, ClubView, Member, MemberView],
+          entities: [
+            User,
+            Club,
+            ClubView,
+            Member,
+            MemberView,
+            Competition,
+            Race,
+            Relay,
+            Cryatlon,
+            Order,
+            OrderView,
+          ],
           synchronize: false,
         };
       },
