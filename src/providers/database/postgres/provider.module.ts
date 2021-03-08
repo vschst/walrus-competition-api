@@ -50,7 +50,7 @@ import { OrderView } from '@models/orders/entities/order-view.entity';
             Order,
             OrderView,
           ],
-          synchronize: true,
+          synchronize: false,
         };
       },
     }),
