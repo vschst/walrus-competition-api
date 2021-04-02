@@ -52,7 +52,7 @@ import { OrderView } from '@models/orders/entities/order-view.entity';
             Order,
             OrderView,
           ],
-          synchronize: false,
+          synchronize: true,
         };
       },
     }),
