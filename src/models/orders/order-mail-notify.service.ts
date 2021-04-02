@@ -76,6 +76,7 @@ export class OrderMailNotifyService {
         relays: relays.map((relay: Relay) => ({
           name: relay.name,
           distance: relay.distance,
+          swimming_style: swimmingStyleText(relay.swimming_style),
           count: relay.count,
           date: formattedDate(relay.date),
         })),
