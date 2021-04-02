@@ -92,6 +92,7 @@ export class OrderMailNotifyService {
         aquatlons: aquatlons.map((aquatlon: Aquatlon) => ({
           name: aquatlon.name,
           run_distance: aquatlon.run_distance,
+          water_distance: aquatlon.water_distance,
           gender: genderText(aquatlon.gender),
           date: formattedDate(aquatlon.date),
         })),
