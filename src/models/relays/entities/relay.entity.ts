@@ -8,9 +8,10 @@ import {
   JoinColumn,
   JoinTable,
 } from 'typeorm';
-import { IsInt, IsNotEmpty, IsString, IsDate } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, IsDate, IsEnum } from 'class-validator';
 import { Competition } from '@models/competitions/entities/competition.entity';
 import { Order } from '@models/orders/entities/order.entity';
+import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
 
 @Entity({ name: 'relays' })
 export class Relay extends BaseEntity {
@@ -44,6 +45,11 @@ export class Relay extends BaseEntity {
   @IsInt()
   @Column()
   distance: number;
+
+  @IsEnum(SwimmingStyles)
+  @IsNotEmpty()
+  @Column({ type: 'enum', enum: SwimmingStyles })
+  swimming_style: SwimmingStyles;
 
   @IsInt()
   @Column()
