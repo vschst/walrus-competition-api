@@ -15,6 +15,7 @@ import {
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Aquatlon } from '@models/aquatlons/entities/aquatlon.entity';
 import { Order } from '@models/orders/entities/order.entity';
 
 @Entity({ name: 'competitions' })
@@ -49,6 +50,9 @@ export class Competition extends BaseEntity {
 
   @OneToMany(() => Cryatlon, (cryatlon) => cryatlon.competition)
   cryatlons: Cryatlon[];
+
+  @OneToMany(() => Aquatlon, (aquatlon) => aquatlon.competition)
+  aquatlons: Aquatlon[];
 
   @OneToMany(() => Order, (order) => order.competition)
   orders: Order[];

@@ -4,6 +4,7 @@ import { Expose, Type } from 'class-transformer';
 import { GetPublicRaceListItemDTO } from '@models/races/dto/public-races.dto';
 import { GetPublicRelayListItemDTO } from '@models/relays/dto/public-relays.dto';
 import { GetPublicCryatlonListItemDTO } from '@models/cryatlons/dto/public-cryatlons.dto';
+import { GetPublicAquatlonListItemDTO } from '@models/aquatlons/dto/public-aquatlons.dto';
 import { Serializable } from '@common/serializers/base.serializer';
 import { GetCompetitionDataDTO } from './competition.dto';
 
@@ -25,6 +26,12 @@ export class GetCompetitionPublicOrdersDataDTO extends GetCompetitionDataDTO {
   @IsArray()
   @Type(() => GetPublicCryatlonListItemDTO)
   cryatlons: GetPublicCryatlonListItemDTO[];
+
+  @ApiProperty({ type: [GetPublicAquatlonListItemDTO] })
+  @Expose()
+  @IsArray()
+  @Type(() => GetPublicAquatlonListItemDTO)
+  aquatlons: GetPublicAquatlonListItemDTO[];
 }
 
 export class GetCompetitionPublicOrdersResponseDTO {

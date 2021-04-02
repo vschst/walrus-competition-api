@@ -17,6 +17,7 @@ import { AuthSkip } from '@common/decorators/requests/auth-skip.decorador';
 import { PublicRacesService } from '@models/races/public-races.service';
 import { PublicRelaysService } from '@models/relays/public-relays.service';
 import { PublicCryatlonsService } from '@models/cryatlons/public-cryatlons.service';
+import { PublicAquatlonsService } from '@models/aquatlons/public-aquatlons.service';
 import { GetCompetitionPublicOrdersResponseDTO } from './dto/competition-public-orders.dto';
 import { Competition } from './entities/competition.entity';
 import { CompetitionPublicOrdersSerializer } from './serializers/competition-public-orders.serializer';
@@ -32,6 +33,7 @@ export class CompetitionsController {
     private readonly publicRacesService: PublicRacesService,
     private readonly publicRelaysService: PublicRelaysService,
     private readonly publicCryatlonsService: PublicCryatlonsService,
+    private readonly publicAquatlonsService: PublicAquatlonsService,
     private readonly competitionPublicOrdersSerializerService: CompetitionPublicOrdersSerializer,
   ) {}
 
@@ -88,13 +90,15 @@ export class CompetitionsController {
       this.publicRacesService.findAll(id),
       this.publicRelaysService.findAll(id),
       this.publicCryatlonsService.findAll(id),
+      this.publicAquatlonsService.findAll(id),
     ]);
-    const [races, relays, cryatlons] = publicAssets;
+    const [races, relays, cryatlons, aquatlons] = publicAssets;
     const competitionPublicOrders = new Competition({
       ...competition,
       races,
       relays,
       cryatlons,
+      aquatlons,
     });
 
     return {

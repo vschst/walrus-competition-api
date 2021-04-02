@@ -72,6 +72,7 @@ export class OrdersController {
       races,
       relays,
       cryatlons,
+      aquatlons,
       additional,
     }: CreateOrderDTO,
   ): Promise<GetOrderResponseDTO> {
@@ -95,6 +96,7 @@ export class OrdersController {
       races,
       relays,
       cryatlons,
+      aquatlons,
       additional,
     );
 

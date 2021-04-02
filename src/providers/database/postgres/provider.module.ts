@@ -13,6 +13,7 @@ import { Competition } from '@models/competitions/entities/competition.entity';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Aquatlon } from '@models/aquatlons/entities/aquatlon.entity';
 import { Order } from '@models/orders/entities/order.entity';
 import { OrderView } from '@models/orders/entities/order-view.entity';
 
@@ -47,6 +48,7 @@ import { OrderView } from '@models/orders/entities/order-view.entity';
             Race,
             Relay,
             Cryatlon,
+            Aquatlon,
             Order,
             OrderView,
           ],
