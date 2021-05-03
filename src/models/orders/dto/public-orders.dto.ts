@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsDate,
   IsEnum,
   IsInt,
   IsNotEmpty,
@@ -33,6 +34,11 @@ export class GetPublicOrderListItemDTO {
   @IsOptional()
   @IsString()
   middle_name: string;
+
+  @ApiProperty()
+  @Expose()
+  @IsDate()
+  birthdate: Date;
 
   @ApiProperty()
   @Expose()
