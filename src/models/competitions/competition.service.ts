@@ -18,7 +18,7 @@ export class CompetitionService {
   ): Promise<[boolean, Competition]> {
     const competition = await this.competitionRepository.findOne(id, {
       ...(relations && {
-        relations: ['races', 'relays', 'cryatlons'],
+        relations: ['races', 'relays', 'cryatlons', 'aquatlons'],
       }),
     });
 

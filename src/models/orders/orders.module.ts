@@ -17,6 +17,7 @@ import { OrdersController } from './orders.controller';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Aquatlon } from '@models/aquatlons/entities/aquatlon.entity';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
       Race,
       Relay,
       Cryatlon,
+      Aquatlon
     ]),
     MailConfigModule,
   ],

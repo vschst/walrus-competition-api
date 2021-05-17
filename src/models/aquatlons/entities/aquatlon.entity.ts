@@ -8,26 +8,26 @@ import {
   JoinColumn,
   JoinTable,
 } from 'typeorm';
-import { IsInt, IsNotEmpty, IsString, IsDate, IsEnum } from 'class-validator';
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { Competition } from '@models/competitions/entities/competition.entity';
 import { Order } from '@models/orders/entities/order.entity';
-import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
+import { Gender } from '@common/enums/gender.enum';
 
-@Entity({ name: 'relays' })
-export class Relay extends BaseEntity {
+@Entity({ name: 'aquatlons' })
+export class Aquatlon extends BaseEntity {
   @IsInt()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Competition, (competition) => competition.relays)
+  @ManyToOne(() => Competition, (competition) => competition.aquatlons)
   @JoinColumn({ name: 'competition_id' })
   competition: Competition;
 
-  @ManyToMany(() => Order, (order) => order.relays)
+  @ManyToMany(() => Order, (order) => order.aquatlons)
   @JoinTable({
-    name: 'order_relays',
+    name: 'order_aquatlons',
     joinColumn: {
-      name: 'relay_id',
+      name: 'aquatlon_id',
       referencedColumnName: 'id',
     },
     inverseJoinColumn: {
@@ -44,23 +44,23 @@ export class Relay extends BaseEntity {
 
   @IsInt()
   @Column()
-  distance: number;
-
-  @IsEnum(SwimmingStyles)
-  @IsNotEmpty()
-  @Column({ type: 'enum', enum: SwimmingStyles })
-  swimming_style: SwimmingStyles;
+  run_distance: number;
 
   @IsInt()
   @Column()
-  count: number;
+  water_distance: number;
+
+  @IsEnum(Gender)
+  @IsNotEmpty()
+  @Column({ type: 'enum', enum: Gender })
+  gender: Gender;
 
   @IsDate()
   @Column({ type: 'date' })
   date: Date;
 
-  constructor(relay: Partial<Relay>) {
+  constructor(aquatlon: Partial<Aquatlon>) {
     super();
-    Object.assign(this, relay);
+    Object.assign(this, aquatlon);
   }
 }

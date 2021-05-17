@@ -23,6 +23,7 @@ import { Gender } from '@common/enums/gender.enum';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Aquatlon } from '@models/aquatlons/entities/aquatlon.entity';
 import { OrderStatuses } from '../enums/order-statuses.enum';
 
 @Entity({ name: 'orders' })
@@ -43,6 +44,9 @@ export class Order extends BaseEntity {
 
   @ManyToMany(() => Cryatlon, (cryatlon) => cryatlon.orders)
   cryatlons: Cryatlon[];
+
+  @ManyToMany(() => Aquatlon, (aquatlon) => aquatlon.orders)
+  aquatlons: Aquatlon[];
 
   @IsString()
   @IsNotEmpty()

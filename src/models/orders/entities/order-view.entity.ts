@@ -38,6 +38,10 @@ import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
         'count(distinct order_cryatlon.cryatlon_id)',
         'cryatlons_count',
       )
+      .addSelect(
+        'count(distinct order_aquatlon.aquatlon_id)',
+        'aquatlons_count',
+      )
       .from(Order, 'order')
       .innerJoin(
         Competition,
@@ -54,6 +58,11 @@ import { OrderStatuses } from '@models/orders/enums/order-statuses.enum';
         'order_cryatlons',
         'order_cryatlon',
         'order_cryatlon.order_id = order.id',
+      )
+      .leftJoin(
+        'order_aquatlons',
+        'order_aquatlon',
+        'order_aquatlon.order_id = order.id',
       )
       .groupBy('order.id')
       .addGroupBy('competition.id')
@@ -136,6 +145,10 @@ export class OrderView {
   @IsInt()
   @ViewColumn()
   cryatlons_count: number;
+
+  @IsInt()
+  @ViewColumn()
+  aquatlons_count: number;
 
   @IsEnum(OrderStatuses)
   @ViewColumn()

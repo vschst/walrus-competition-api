@@ -89,6 +89,11 @@ export class CreateOrderDTO {
   @IsInt({ each: true })
   cryatlons: number[];
 
+  @ApiProperty({ type: [Number] })
+  @IsOptional()
+  @IsInt({ each: true })
+  aquatlons: number[];
+
   @ApiProperty()
   @IsString()
   @IsOptional()

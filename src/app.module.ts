@@ -9,6 +9,7 @@ import { CompetitionsModule } from '@models/competitions/competitions.module';
 import { RacesModule } from '@models/races/races.module';
 import { RelaysModule } from '@models/relays/relays.module';
 import { CryatlonsModule } from '@models/cryatlons/cryatlons.module';
+import { AquatlonsModule } from '@models/aquatlons/aquatlons.module';
 import { OrdersModule } from '@models/orders/orders.module';
 import { AuthModule } from '@auth/auth.module';
 
@@ -23,6 +24,7 @@ import { AuthModule } from '@auth/auth.module';
     RacesModule,
     RelaysModule,
     CryatlonsModule,
+    AquatlonsModule,
     OrdersModule,
     AuthModule,
   ],

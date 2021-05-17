@@ -5,6 +5,7 @@ import { Order } from './entities/order.entity';
 import { Race } from '@models/races/entities/race.entity';
 import { Relay } from '@models/relays/entities/relay.entity';
 import { Cryatlon } from '@models/cryatlons/entities/cryatlon.entity';
+import { Aquatlon } from '@models/aquatlons/entities/aquatlon.entity';
 import { Gender } from '@common/enums/gender.enum';
 import { CompetitionService } from '@models/competitions/competition.service';
 import { OrderMailNotifyService } from './order-mail-notify.service';
@@ -26,6 +27,8 @@ export class OrderService {
     private relayRepository: Repository<Relay>,
     @InjectRepository(Cryatlon)
     private cryatlonRepository: Repository<Cryatlon>,
+    @InjectRepository(Aquatlon)
+    private aquatlonRepository: Repository<Aquatlon>,
   ) {}
 
   async createOrder(
@@ -44,6 +47,7 @@ export class OrderService {
     races: number[] | null,
     relays: number[] | null,
     cryatlons: number[] | null,
+    aquatlons: number[] | null,
     additional: string | null,
   ): Promise<[boolean, string, Order]> {
     try {
@@ -56,7 +60,7 @@ export class OrderService {
         return [false, 'competition_not_found', null];
       }
 
-      if (!races && !relays && !cryatlons) {
+      if (!races && !relays && !cryatlons && !aquatlons) {
         return [false, 'no_distances', null];
       }
 
@@ -68,6 +72,9 @@ export class OrderService {
         : [];
       const availableCryatlons = cryatlons
         ? await this.cryatlonRepository.findByIds(cryatlons)
+        : [];
+      const availableAquatlons = aquatlons
+        ? await this.aquatlonRepository.findByIds(aquatlons)
         : [];
 
       const order = new Order({
@@ -86,6 +93,7 @@ export class OrderService {
         races: availableRaces,
         relays: availableRelays,
         cryatlons: availableCryatlons,
+        aquatlons: availableAquatlons,
         additional,
         status: OrderStatuses.New,
         created_at: new Date(),

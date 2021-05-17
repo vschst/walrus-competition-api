@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { Gender } from '@common/enums/gender.enum';
 import { Expose } from 'class-transformer';
-import { SwimmingStyles } from '@common/enums/swimming-styles.enum';
 
-export class GetRelayDataDTO {
+export class GetAquatlonDataDTO {
   @ApiProperty()
   @Expose()
   @IsInt()
@@ -18,17 +18,17 @@ export class GetRelayDataDTO {
   @ApiProperty()
   @Expose()
   @IsInt()
-  distance: number;
-
-  @ApiProperty()
-  @Expose()
-  @IsEnum(SwimmingStyles)
-  swimming_style: SwimmingStyles;
+  run_distance: number;
 
   @ApiProperty()
   @Expose()
   @IsInt()
-  count: number;
+  water_distance: number;
+
+  @ApiProperty({ enum: Gender })
+  @Expose()
+  @IsEnum(Gender)
+  gender: Gender;
 
   @ApiProperty()
   @Expose()

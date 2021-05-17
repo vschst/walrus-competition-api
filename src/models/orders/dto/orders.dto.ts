@@ -83,6 +83,11 @@ export class GetOrderListItemDTO {
   @IsInt()
   cryatlons_count: number;
 
+  @ApiProperty()
+  @Transform(({ value: count }) => parseInt(count))
+  @IsInt()
+  aquatlons_count: number;
+
   @ApiProperty({ enum: OrderStatuses })
   @IsEnum(OrderStatuses)
   status: OrderStatuses;
