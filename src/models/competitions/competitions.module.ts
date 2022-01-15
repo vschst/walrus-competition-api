@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompetitionSerializer } from './serializers/competition.serializer';
 import { CompetitionPublicOrdersSerializer } from './serializers/competition-public-orders.serializer';
+import { UpcomingCompetitionSerializer } from './serializers/upcoming-competition.serializer';
+import { PublicCompetitionsService } from './public-competitions.service';
 import { CompetitionService } from './competition.service';
 import { PublicRacesService } from '@models/races/public-races.service';
 import { PublicRelaysService } from '@models/relays/public-relays.service';
@@ -29,6 +31,8 @@ import { CompetitionsController } from './competitions.controller';
   providers: [
     CompetitionSerializer,
     CompetitionPublicOrdersSerializer,
+    UpcomingCompetitionSerializer,
+    PublicCompetitionsService,
     CompetitionService,
     PublicRacesService,
     PublicRelaysService,

@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('mail', () => ({
+  debug: process.env.MAIL_DEBUG,
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
   secure: process.env.MAIL_SECURE,

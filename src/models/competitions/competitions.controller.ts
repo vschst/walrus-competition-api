@@ -21,6 +21,9 @@ import { PublicAquatlonsService } from '@models/aquatlons/public-aquatlons.servi
 import { GetCompetitionPublicOrdersResponseDTO } from './dto/competition-public-orders.dto';
 import { Competition } from './entities/competition.entity';
 import { CompetitionPublicOrdersSerializer } from './serializers/competition-public-orders.serializer';
+import { GetPublicUpcomingCompetitionsListResponseDTO } from './dto/public-upcoming-competitions.dto';
+import { PublicCompetitionsService } from './public-competitions.service';
+import { UpcomingCompetitionSerializer } from './serializers/upcoming-competition.serializer';
 
 @ApiTags('competitions')
 @Controller('competitions')
@@ -28,8 +31,10 @@ import { CompetitionPublicOrdersSerializer } from './serializers/competition-pub
 @UseGuards(JwtAuthGuard)
 export class CompetitionsController {
   constructor(
+    private readonly publicCompetitionsService: PublicCompetitionsService,
     private readonly competitionService: CompetitionService,
     private readonly competitionSerializerService: CompetitionSerializer,
+    private readonly upcomingCompetitionSerializerService: UpcomingCompetitionSerializer,
     private readonly publicRacesService: PublicRacesService,
     private readonly publicRelaysService: PublicRelaysService,
     private readonly publicCryatlonsService: PublicCryatlonsService,
@@ -61,6 +66,24 @@ export class CompetitionsController {
     return {
       data: this.competitionSerializerService.markSerializableValue(
         competition,
+      ),
+    };
+  }
+
+  @Get('public/upcoming')
+  @AuthSkip()
+  @ApiOperation({ summary: 'Get upcoming public competitions list' })
+  @ApiResponse({
+    status: 200,
+    type: GetPublicUpcomingCompetitionsListResponseDTO,
+    description: 'Successful get public upcoming competitions list',
+  })
+  async getUpcomingPublicCompetitions(): Promise<GetPublicUpcomingCompetitionsListResponseDTO> {
+    const competitions = await this.publicCompetitionsService.findAllUpcoming();
+
+    return {
+      data: this.upcomingCompetitionSerializerService.markSerializableCollection(
+        competitions,
       ),
     };
   }

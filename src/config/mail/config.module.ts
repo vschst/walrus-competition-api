@@ -9,6 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       load: [configuration],
       validationSchema: Joi.object({
+        MAIL_DEBUG: Joi.boolean().default(false),
         MAIL_HOST: Joi.string().default('smtp.example.com'),
         MAIL_PORT: Joi.number().default(587),
         MAIL_SECURE: Joi.boolean().truthy('1').falsy('0'),

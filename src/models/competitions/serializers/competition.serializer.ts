@@ -12,6 +12,6 @@ export class CompetitionSerializer extends BaseSerializerService<
   public async serialize(
     competition: Competition,
   ): Promise<GetCompetitionDataDTO> {
-    return plainToClass(GetCompetitionDataDTO, competition)
+    return plainToClass(GetCompetitionDataDTO, competition);
   }
 }

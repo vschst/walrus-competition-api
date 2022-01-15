@@ -11,6 +11,7 @@ import { CompetitionService } from '@models/competitions/competition.service';
 import { OrderMailNotifyService } from './order-mail-notify.service';
 import { OrderStatuses } from './enums/order-statuses.enum';
 import { UpdateOrderDTO } from './dto/update-order.dto';
+import { MailConfigService } from '@config/mail/config.service';
 
 @Injectable()
 export class OrderService {
@@ -29,6 +30,7 @@ export class OrderService {
     private cryatlonRepository: Repository<Cryatlon>,
     @InjectRepository(Aquatlon)
     private aquatlonRepository: Repository<Aquatlon>,
+    private readonly mailConfigService: MailConfigService,
   ) {}
 
   async createOrder(
@@ -100,7 +102,10 @@ export class OrderService {
       });
 
       await order.save();
-      await this.orderMailNotify.sendNewOrderNotify(order);
+
+      if (!this.mailConfigService.debug) {
+        await this.orderMailNotify.sendNewOrderNotify(order);
+      }
 
       return [true, '', order];
     } catch (error) {

@@ -82,17 +82,11 @@ export class OrderMailNotifyService {
         })),
         cryatlons: cryatlons.map((cryatlon: Cryatlon) => ({
           name: cryatlon.name,
-          run_distance: cryatlon.run_distance,
-          ski_distance: cryatlon.ski_distance,
-          water_distance: cryatlon.water_distance,
-          barefoot_distance: cryatlon.barefoot_distance,
           gender: genderText(cryatlon.gender),
           date: formattedDate(cryatlon.date),
         })),
         aquatlons: aquatlons.map((aquatlon: Aquatlon) => ({
           name: aquatlon.name,
-          run_distance: aquatlon.run_distance,
-          water_distance: aquatlon.water_distance,
           gender: genderText(aquatlon.gender),
           date: formattedDate(aquatlon.date),
         })),
