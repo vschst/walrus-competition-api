@@ -5,10 +5,6 @@ import { ConfigService } from '@nestjs/config';
 export class MailConfigService {
   constructor(private configService: ConfigService) {}
 
-  get debug(): boolean {
-    return this.configService.get<boolean>('mail.debug');
-  }
-
   get host(): string {
     return this.configService.get<string>('mail.host');
   }
